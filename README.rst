@@ -3,7 +3,7 @@ GridRealm
 =========
 
 :author: Curtis Sand <curtissand@gmail.com>,
-         Dennis Gaetz <dennisgaetz@gmail.com>
+         Dennison Gaetz <djgaetz@gmail.com>
 
 :homepage: http://www.fretboardfreak.com/gridrealm
 
