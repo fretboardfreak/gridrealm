@@ -5,7 +5,7 @@ GridRealm
 :author: Curtis Sand <curtissand@gmail.com>,
          Dennis Gaetz <dennisgaetz@gmail.com>
 
-:homepage: http://www.fretboardfreak.com/gridrealms
+:homepage: http://www.fretboardfreak.com/gridrealm
 
 :lastedit: 181003-1700
 
