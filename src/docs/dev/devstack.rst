@@ -47,6 +47,8 @@ TODO: need to determine how to register clicks on areas within the canvas!
 API Server
 ----------
 
+`API Server Page <http://fretboardfreak.com/gridrealm/dev/api_server.html>`_
+
 The API Server is a web connected server that talks a request language called
 RESTfull. (I think REST will suit our needs for now.) The purpose of the API
 Server is to bridge the gap between the `Client`_ and the `Game Engine`_.
@@ -63,14 +65,37 @@ The API Server will be written in Python 3 using `Flask
 Asset Server
 ------------
 
-TODO
+`API Server Page <http://fretboardfreak.com/gridrealm/dev/asset_server.html>`_
+
+The Asset Server will be a simple NGINX webserver containing the game assets.
+The Asset Server will serve up the assets to the client pages as described by
+what the `API Server`_ tells the client to load.
+
+TODO: determine how to include authentication here to prevent the Asset Server
+from being accessed outside the game's intended use.
 
 Game Engine
 -----------
 
-TODO
+`Game Engine Page <http://fretboardfreak.com/gridrealm/dev/game_engine.html>`_
+
+The Game Engine is where all the magic happens. Random events in the world,
+combat calculations, and everything else that happens in the game is controlled
+and mediated by the Game Engine.
 
 Persistence Engine
 ------------------
 
-TODO
+`Persistence Engine Page
+<http://fretboardfreak.com/gridrealm/dev/persistence_engine.html>`_
+
+The Persistence Engine is a fancy -- possibly overblown -- name for a layer
+that saves and loads the information about the game's configuration and status
+to disk. This includes all the info about a player and their inventory as well
+as all the data about the entire world or more.
+
+----
+
+- `Home <http://www.fretboardfreak.com/gridrealm>`_
+- `Back to Development <http://www.fretboardfreak.com/gridrealm/dev>`_
+- `Source <http://www.fretboardfreak.com/gridrealm/dev/devstack.rst>`_
