@@ -65,7 +65,7 @@ The API Server will be written in Python 3 using `Flask
 Asset Server
 ------------
 
-`API Server Page <http://fretboardfreak.com/gridrealm/dev/asset_server.html>`_
+`Asset Server Page <http://fretboardfreak.com/gridrealm/dev/asset_server.html>`_
 
 The Asset Server will be a simple NGINX webserver containing the game assets.
 The Asset Server will serve up the assets to the client pages as described by
