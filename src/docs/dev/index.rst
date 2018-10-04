@@ -11,5 +11,7 @@ Grid Realms Development
 
 ----
 
+The plan is to create a modular framework of systems designed to build a
+functional multiplayer online gaming system.
 
-TODO: develop grid realms
+- `Development Stack <http://www.fretboardfreak.com/gridrealm/dev/devstack.rst>`_
