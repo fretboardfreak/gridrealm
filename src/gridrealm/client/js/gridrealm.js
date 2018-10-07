@@ -52,7 +52,25 @@ function create_account() {
   alert("Creating an account...");
 }
 
+/* /Authentication Code */
 /* -------------------------------------------------------------------- */
+/* General Code */
+
+function resize_panels() {
+  var window_height = $(window).height();
+  $("#action-panel").height(window_height * 0.6)
+  $("#multi-panel").height(window_height * 0.9)
+  $("#chat-panel").height(window_height * 0.3)
+
+  var window_width = $(window).width();
+  $("#action-panel").width(window_width * 0.6)
+  $("#multi-panel").width(window_width * 0.3)
+  $("#chat-panel").width(window_width * 0.6)
+
+  add_size("#action-panel");
+  add_size("#multi-panel");
+  add_size("#chat-panel");
+}
 
 function init_panels() {
   if (is_logged_in()) {
@@ -77,9 +95,29 @@ function init_panels() {
   }
 }
 
+/* /General Code */
+/* -------------------------------------------------------------------- */
+/* Debug Code */
+
+function add_size(panel_id) {
+  var str = panel_id;
+  str += ": ";
+  str += $(panel_id).innerWidth();
+  str += "x";
+  str += $(panel_id).innerHeight();
+  $(panel_id).text(str);
+}
+
+/* /General Code */
+/* -------------------------------------------------------------------- */
+/* Events */
 
 /* On DOM Ready*/
 $(document).ready(function(){
   console.log("initializing page.");
   init_panels();
+  resize_panels();
 });
+
+/* Resize the game panels when browser window is resized. */
+$(window).resize(resize_panels);
