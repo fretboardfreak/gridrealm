@@ -29,6 +29,9 @@ function login() {
   init_panels();
   $("#login-link").text('Logout');
   $("#create-account-link").addClass("hidden");
+  load_action_panel();
+  load_multi_panel();
+  load_chat_panel();
 }
 
 function logout() {
@@ -93,6 +96,45 @@ function init_panels() {
     $("#chat-panel").addClass('hidden');
     $("#size-record").addClass('hidden');
   }
+}
+
+function get_image_style(width, height) {
+  /* Build style string for image tags with width and height properties.
+   *     <img style="width=100%;height=100%;"/>
+   */
+  var style_str = "\"";
+  if (width) {
+    style_str += "width:" + width + ";";
+  }
+  else {
+    style_str += "width:100%;";
+  }
+  if (height) {
+    style_str += "height:" + height + ";";
+  }
+  else {
+    style_str += "height:100%;";
+  }
+  style_str += "\"";
+  return style_str;
+}
+
+function load_action_panel() {
+  var temp_content = "<p>action panel</p><img src=\"../../../_assets/gold.svg\" style=";
+  temp_content += get_image_style() + "/>";
+  $("#action-panel").html(temp_content);
+}
+
+function load_multi_panel() {
+  var temp_content = "<p>multi panel</p><img src=\"../../../_assets/platinum.svg\" style=";
+  temp_content += get_image_style() + "/>";
+  $("#multi-panel").html(temp_content);
+}
+
+function load_chat_panel() {
+  var temp_content = "<p>chat panel</p><img src=\"../../../_assets/silver.svg\" style=";
+  temp_content += get_image_style() + "/>";
+  $("#chat-panel").html(temp_content);
 }
 
 /* /General Code */
