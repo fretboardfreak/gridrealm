@@ -120,19 +120,19 @@ function get_image_style(width, height) {
 }
 
 function load_action_panel() {
-  var temp_content = "<p>action panel</p><img src=\"../../../_assets/gold.svg\" style=";
+  var temp_content = "<p>action panel</p><img src=\"_assets/gold.svg\" style=";
   temp_content += get_image_style() + "/>";
   $("#action-panel").html(temp_content);
 }
 
 function load_multi_panel() {
-  var temp_content = "<p>multi panel</p><img src=\"../../../_assets/platinum.svg\" style=";
+  var temp_content = "<p>multi panel</p><img src=\"_assets/platinum.svg\" style=";
   temp_content += get_image_style() + "/>";
   $("#multi-panel").html(temp_content);
 }
 
 function load_chat_panel() {
-  var temp_content = "<p>chat panel</p><img src=\"../../../_assets/silver.svg\" style=";
+  var temp_content = "<p>chat panel</p><img src=\"_assets/silver.svg\" style=";
   temp_content += get_image_style() + "/>";
   $("#chat-panel").html(temp_content);
 }
