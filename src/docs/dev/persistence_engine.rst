@@ -6,9 +6,9 @@ GR: Persistence Engine
          Dennison Gaetz <djgaetz@gmail.com>
 :lastedit: 181003-2300
 
-- `Home <http://www.fretboardfreak.com/gridrealm>`_
-- `Back to Development <http://www.fretboardfreak.com/gridrealm/dev>`_
-- `Source <http://www.fretboardfreak.com/gridrealm/dev/persistence_engine.rst>`_
+- `Source <persistence_engine.rst>`_
+- `Home <../index.html>`_
+- `Back to Development <index.html>`_
 
 ----
 
@@ -16,6 +16,6 @@ TBD
 
 ----
 
-- `Home <http://www.fretboardfreak.com/gridrealm>`_
-- `Back to Development <http://www.fretboardfreak.com/gridrealm/dev>`_
-- `Source <http://www.fretboardfreak.com/gridrealm/dev/persistence_engine.rst>`_
+- `Home <../index.html>`_
+- `Back to Development <index.html>`_
+- `Source <persistence_engine.rst>`_

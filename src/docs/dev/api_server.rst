@@ -6,9 +6,9 @@ GR: API Server
          Dennison Gaetz <djgaetz@gmail.com>
 :lastedit: 181003-2300
 
-- `Home <http://www.fretboardfreak.com/gridrealm>`_
-- `Back to Development <http://www.fretboardfreak.com/gridrealm/dev>`_
-- `Source <http://www.fretboardfreak.com/gridrealm/dev/api_server.rst>`_
+- `Source <api_server.rst>`_
+- `Home <../index.hmtl>`_
+- `Back to Development <index.html>`_
 
 ----
 
@@ -16,6 +16,6 @@ TBD
 
 ----
 
-- `Home <http://www.fretboardfreak.com/gridrealm>`_
-- `Back to Development <http://www.fretboardfreak.com/gridrealm/dev>`_
-- `Source <http://www.fretboardfreak.com/gridrealm/dev/api_server.rst>`_
+- `Home <../index.html>`_
+- `Back to Development <index.html>`_
+- `Source <api_server.rst>`_

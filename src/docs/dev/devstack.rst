@@ -6,9 +6,9 @@ GR: Development Stack
          Dennison Gaetz <djgaetz@gmail.com>
 :lastedit: 181003-1800
 
-- `Home <http://www.fretboardfreak.com/gridrealm>`_
-- `Back to Development <http://www.fretboardfreak.com/gridrealm/dev>`_
-- `Source <http://www.fretboardfreak.com/gridrealm/dev/devstack.rst>`_
+- `Source <devstack.rst>`_
+- `Home <../index.html>`_
+- `Back to Development <index.html>`_
 
 ----
 
@@ -47,7 +47,7 @@ TODO: need to determine how to register clicks on areas within the canvas!
 API Server
 ----------
 
-`API Server Page <http://fretboardfreak.com/gridrealm/dev/api_server.html>`_
+`API Server Page <api_server.html>`_
 
 The API Server is a web connected server that talks a request language called
 RESTfull. (I think REST will suit our needs for now.) The purpose of the API
@@ -65,7 +65,7 @@ The API Server will be written in Python 3 using `Flask
 Asset Server
 ------------
 
-`Asset Server Page <http://fretboardfreak.com/gridrealm/dev/asset_server.html>`_
+`Asset Server Page <asset_server.html>`_
 
 The Asset Server will be a simple NGINX webserver containing the game assets.
 The Asset Server will serve up the assets to the client pages as described by
@@ -77,7 +77,7 @@ from being accessed outside the game's intended use.
 Game Engine
 -----------
 
-`Game Engine Page <http://fretboardfreak.com/gridrealm/dev/game_engine.html>`_
+`Game Engine Page <game_engine.html>`_
 
 The Game Engine is where all the magic happens. Random events in the world,
 combat calculations, and everything else that happens in the game is controlled
@@ -86,8 +86,7 @@ and mediated by the Game Engine.
 Persistence Engine
 ------------------
 
-`Persistence Engine Page
-<http://fretboardfreak.com/gridrealm/dev/persistence_engine.html>`_
+`Persistence Engine Page <persistence_engine.html>`_
 
 The Persistence Engine is a fancy -- possibly overblown -- name for a layer
 that saves and loads the information about the game's configuration and status
@@ -96,6 +95,6 @@ as all the data about the entire world or more.
 
 ----
 
-- `Home <http://www.fretboardfreak.com/gridrealm>`_
-- `Back to Development <http://www.fretboardfreak.com/gridrealm/dev>`_
-- `Source <http://www.fretboardfreak.com/gridrealm/dev/devstack.rst>`_
+- `Home <../index.html>`_
+- `Back to Development <index.html>`_
+- `Source <devstack.rst>`_
