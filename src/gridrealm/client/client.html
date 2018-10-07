@@ -1,48 +1,80 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Grid Realm</title>
-<meta name="date" content="2018-10-04 10:30" />
-<meta name="author" content="Curtis Sand, Dennison Gaetz" />
-<link rel="stylesheet" href="style.css">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>Grid Realm</title>
+  <meta name="date" content="2018-10-04 10:30" />
+  <meta name="author" content="Curtis Sand, Dennison Gaetz" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
 </head>
 <body>
-<div class="document" id="gridrealm-client">
-<h1 class="title">Grid Realm</h1>
-<table class="docinfo" frame="void" rules="none">
-<col class="docinfo-name" />
-<col class="docinfo-content" />
-<tbody valign="top">
-<tr><th class="docinfo-name">Date:</th>
-<td>2016-11-11 10:30</td></tr>
-<tr><th class="docinfo-name">Author:</th>
-<td>Curtis Sand, Dennison Gaetz</td></tr>
-</tbody>
-</table>
-<ul class="navlist simple">
-<li><a class="reference external" href="./index.html">Home</a></li>
-</ul>
-<hr class="docutils" />
+  <div class="container-fluid">
+    <div class="row"> <!-- Navigation Bar -->
+      <div class="col-sm-2">
+        <a class="reference external" href="./client.html">Home</a>
+        &nbsp; | &nbsp;
+        <a class="reference external" href="http://fretboardfreak.com/gridrealm">Documentation</a>
+      </div>
+      <div class="col-sm-9"></div>
+      <div id="col-sm-1">
+        <div id="login-link" onclick="toggle_login_state()">Login</div>
+        <div id="create-account-link" onclick="create_account()">Create Account</div>
+      </div>
+    </div>
 
-<div id="div_actionpanel">
-    <!-- TODO: Style the canvas using a gridrealm specific stylesheet-->
-    <canvas id="actionpanel" width="500" height="500" style="border:1px solid #000000;">
-        Sorry, your browser does not support HTML5 canvas graphics. Grid Realm will not be able to display.
-    </canvas>
-</div>
+    <div id="nologin">
+      <h1 class="title">Grid Realm</h1>
+      <table class="docinfo" frame="void" rules="none">
+        <col class="docinfo-name" />
+        <col class="docinfo-content" />
+        <tbody valign="top">
+          <tr><th class="docinfo-name">Date:</th>
+              <td>2016-11-11 10:30</td></tr>
+          <tr><th class="docinfo-name">Author:</th>
+              <td>Curtis Sand, Dennison Gaetz</td></tr>
+        </tbody>
+      </table>
 
-<hr class="docutils" />
-<dl class="docutils">
-<dt>Contact Info:</dt>
-<dd><ul class="first last simple">
-<li><a class="reference external" href="http://fretboardfreak.com/gridrealm">Grid Realm Documentation</a></li>
-</ul>
-</dd>
-</dl>
-</div>
+      <ul class="navlist simple">
+        <li><a class="reference external" href="./client.html">Home</a></li>
+        <li><a class="reference external" href="http://fretboardfreak.com/gridrealm">Documentation</a></li>
+      </ul>
+      <hr class="docutils" />
+
+      <div id="gridrealm-media">
+          <!-- TODO: This is the not logged in page. Media or screenshots can go here.-->
+          This is the "not logged in" portion of the client page. Media or
+          screenshots can go here.
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9">
+            <div id="action-panel">
+              action panel
+              <canvas style="border: 1px solid #000000;" height="90%" width="90%"></canvas>
+            </div>
+        </div>
+        <div class="col-sm-3">
+          <div id="multi-panel">
+            multi panel
+            <canvas style="border: 1px solid #000000;" height="90%" width="90%"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div id="chat-panel">
+          chat panel
+          <canvas style="border: 1px solid #000000;" height="90%" width="90%"></canvas>
+        </div>
+      </div>
+  </div>
 </body>
-<script type="text/javascript" src="jquery-3.3.1.js" ></script>
-<script type="text/javascript" src="gridrealm.js" ></script>
+<script type="text/javascript" src="js/jquery-3.3.1.js" ></script>
+<script type="type/javascript" src="js/bootstrap.js" ></script>
+<script type="text/javascript" src="js/gridrealm.js" ></script>
 </html>
