@@ -26,6 +26,7 @@ class Config(object):
     js_stub = "client/js/%s"
     asset_stub = asset_path + "/%s"
     asset_uri = '_assets'
+    docs_stub = "docs/%s"
 
 
 def _abort_if_file_missing(path, errno=404):
@@ -56,6 +57,14 @@ def asset(asset):
     _abort_if_file_missing(fpath)
     return send_file(fpath)
 
+@APP.route('/docs/')
+@APP.route('/docs/<path:doc>')
+def docs(doc=None):
+    if not doc:
+        doc = 'index.html'
+    fpath = Config.docs_stub % doc
+    _abort_if_file_missing(fpath)
+    return send_file(fpath)
 
 # ---- REST API ----
 
