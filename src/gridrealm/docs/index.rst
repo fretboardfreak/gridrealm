@@ -8,7 +8,7 @@ Grid Realm
 
 - `Source <index.rst>`_
 - `Home <index.html>`_
-- `Client <../client/client.html>`_
+- `Client <..>`_
 
 ----
 
