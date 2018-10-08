@@ -16,6 +16,9 @@
  */
 var LOGGED_IN = false;
 
+var apiVersion = "api/version";
+var apiRandomImage = "api/randomImage;"
+
 /* TODO: use this function to retrieve the authenticated session token if the
  * user is logged in. Return false otherwise.
  */
@@ -52,10 +55,36 @@ function toggle_login_state() {
 }
 
 function create_account() {
-  alert("Creating an account...");
-}
+  get_api_version(function (response) {
+    alert("Creating an account using API version: " + response.version);
+  });
+};
 
 /* /Authentication Code */
+/* -------------------------------------------------------------------- */
+/* API Requests */
+
+function get_random_image(success) {
+  $.ajax({
+    url: 'api/randomImage',
+    data: '',
+    type: 'GET',
+    success: success,
+    error: function (error) {console.log(error);}
+  });
+};
+
+function get_api_version(success) {
+  $.ajax({
+    url: 'api/version',
+    data: '',
+    type: 'GET',
+    success: success,
+    error: function (error) {console.log(error);}
+  });
+};
+
+/* /API Requests */
 /* -------------------------------------------------------------------- */
 /* General Code */
 
@@ -120,21 +149,30 @@ function get_image_style(width, height) {
 }
 
 function load_action_panel() {
-  var temp_content = "<p>action panel</p><img src=\"_assets/gold.svg\" style=";
-  temp_content += get_image_style() + "/>";
-  $("#action-panel").html(temp_content);
+  get_random_image(function (response) {
+    var temp_content = "<p>action panel</p><img src=\"" + response.randomImage + "\" style=";
+    temp_content += get_image_style() + "/>";
+    $("#action-panel").html(temp_content);
+    console.log('Added image to action panel');
+  });
 }
 
 function load_multi_panel() {
-  var temp_content = "<p>multi panel</p><img src=\"_assets/platinum.svg\" style=";
-  temp_content += get_image_style() + "/>";
-  $("#multi-panel").html(temp_content);
+  get_random_image(function (response) {
+    var temp_content = "<p>multi panel</p><img src=\"" + response.randomImage + "\" style=";
+    temp_content += get_image_style() + "/>";
+    $("#multi-panel").html(temp_content);
+    console.log('Added image to multi panel');
+  });
 }
 
 function load_chat_panel() {
-  var temp_content = "<p>chat panel</p><img src=\"_assets/silver.svg\" style=";
-  temp_content += get_image_style() + "/>";
-  $("#chat-panel").html(temp_content);
+  get_random_image(function (response) {
+    var temp_content = "<p>chat panel</p><img src=\"" + response.randomImage + "\" style=";
+    temp_content += get_image_style() + "/>";
+    $("#chat-panel").html(temp_content);
+    console.log('Added image to chat panel');
+  });
 }
 
 /* /General Code */
