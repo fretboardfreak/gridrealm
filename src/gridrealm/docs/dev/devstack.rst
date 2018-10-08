@@ -32,8 +32,8 @@ Client
 ------
 
 This is a webpage using javascript and HTML5 to send REST API requests to the
-`API Server`_, load asset images from the `Asset Server`_ then display the game
-UI and interact with the user.
+`API Server`_, load asset images, display the game UI and interact with the
+user.
 
 To display the game itself the plan is to use HTML5 and javascript/jquery to
 load game asset images and create the UI.
