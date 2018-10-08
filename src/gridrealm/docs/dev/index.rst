@@ -16,9 +16,7 @@ functional multiplayer online gaming system.
 
 - `Development Stack <devstack.html>`_
 - `API Server <api_server.html>`_
-- `Asset Server <asset_server.html>`_
 - `Game Engine <game_engine.html>`_
-- `Persistence Engine <persistence_engine.html>`_
 
 ----
 

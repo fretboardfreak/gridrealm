@@ -4,7 +4,7 @@ GR: Development Stack
 
 :author: Curtis Sand <curtissand@gmail.com>,
          Dennison Gaetz <djgaetz@gmail.com>
-:lastedit: 181003-1800
+:lastedit: 181008-1600
 
 - `Source <devstack.rst>`_
 - `Home <../index.html>`_
@@ -17,19 +17,15 @@ functional multiplayer online gaming system. ::
 
     +--------+
     | Client |
-    +--------+______________
-      |                     \
-    +------------+        +--------------+
-    | API Server |        | Asset Server |
-    +------------+        +--------------+
+    +--------+
+      |
+    +---------------------+
+    | API Server & Assets |
+    +---------------------+
       |
     +-------------+
     | Game Engine |
     +-------------+
-      |
-    +--------------------+
-    | Persistence Engine |
-    +--------------------+
 
 
 Client
@@ -39,10 +35,8 @@ This is a webpage using javascript and HTML5 to send REST API requests to the
 `API Server`_, load asset images from the `Asset Server`_ then display the game
 UI and interact with the user.
 
-To display the game itself the plan is to use the HTML5 canvas to load game
-asset images to create the UI.
-
-TODO: need to determine how to register clicks on areas within the canvas!
+To display the game itself the plan is to use HTML5 and javascript/jquery to
+load game asset images and create the UI.
 
 API Server
 ----------
@@ -62,18 +56,6 @@ load from the `Asset Server`_ in order to respond to the user.
 The API Server will be written in Python 3 using `Flask
 <http://flask.pocoo.org>`_ to perform the RESTfull communication.
 
-Asset Server
-------------
-
-`Asset Server Page <asset_server.html>`_
-
-The Asset Server will be a simple NGINX webserver containing the game assets.
-The Asset Server will serve up the assets to the client pages as described by
-what the `API Server`_ tells the client to load.
-
-TODO: determine how to include authentication here to prevent the Asset Server
-from being accessed outside the game's intended use.
-
 Game Engine
 -----------
 
@@ -83,15 +65,8 @@ The Game Engine is where all the magic happens. Random events in the world,
 combat calculations, and everything else that happens in the game is controlled
 and mediated by the Game Engine.
 
-Persistence Engine
-------------------
-
-`Persistence Engine Page <persistence_engine.html>`_
-
-The Persistence Engine is a fancy -- possibly overblown -- name for a layer
-that saves and loads the information about the game's configuration and status
-to disk. This includes all the info about a player and their inventory as well
-as all the data about the entire world or more.
+The Game Engine will also have a backend layer for persistence. Ideally this
+would be a SQL database of some sort.
 
 ----
 
