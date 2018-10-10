@@ -39,19 +39,19 @@ def index():
     _abort_if_file_missing(client)
     return send_file(client)
 
-@APP.route('/css/<stylesheet>')
+@APP.route('/css/<path:stylesheet>')
 def stylesheet(stylesheet):
     fpath = Config.css_stub % stylesheet
     _abort_if_file_missing(fpath)
     return send_file(fpath)
 
-@APP.route('/js/<script>')
+@APP.route('/js/<path:script>')
 def script(script):
     fpath = Config.js_stub % script
     _abort_if_file_missing(fpath)
     return send_file(fpath)
 
-@APP.route('/_assets/<asset>')
+@APP.route('/_assets/<path:asset>')
 def asset(asset):
     fpath = Config.asset_stub % asset
     _abort_if_file_missing(fpath)
@@ -83,13 +83,15 @@ class RandomImage(Resource):
 
     def _load_image_list(self):
         images = []
+        assets = "_assets"
         for dpath, dnames, fnames in os.walk(Config.asset_path):
-            common = os.path.commonprefix([Config.asset_path, dpath])
+            common = dpath[dpath.find(assets) + len(assets):]
+            common = common[1:] if common.startswith('/') else common
             for fname in fnames:
                 if fname.startswith(".") or fname.startswith("_"):
                     continue
                 if fname not in images:
-                    images.append(os.path.join(Config.asset_uri, fname))
+                    images.append(os.path.join(Config.asset_uri, common, fname))
         return images
 
     def get(self):
