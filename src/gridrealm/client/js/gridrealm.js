@@ -104,26 +104,26 @@ function resize_panels() {
 
 function init_panels() {
   if (is_logged_in()) {
-    console.log("disabling nologin content")
-    $("#nologin").addClass('hidden');
+    console.log("disabling nologin content");
+    $("#nologin").hide();
     console.log("initializing action panel");
-    $("#action-panel").removeClass('hidden');
+    $("#action-panel").show();
     console.log("initializing multi panel");
-    $("#multi-panel").removeClass('hidden');
+    $("#multi-panel").show();
     console.log("initializing chat panel");
-    $("#chat-panel").removeClass('hidden');
-    $("#size-record").removeClass('hidden');
+    $("#chat-panel").show();
+    $("#size-record").show();
   }
   else { /* not logged in */
     console.log("initializing nologin content");
-    $("#nologin").removeClass('hidden');
+    $("#nologin").show();
     console.log("disabling action panel");
-    $("#action-panel").addClass('hidden');
+    $("#action-panel").hide();
     console.log("disabling multi panel");
-    $("#multi-panel").addClass('hidden');
+    $("#multi-panel").hide();
     console.log("disabling chat panel");
-    $("#chat-panel").addClass('hidden');
-    $("#size-record").addClass('hidden');
+    $("#chat-panel").hide();
+    $("#size-record").hide();
   }
 }
 
