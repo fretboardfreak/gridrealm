@@ -25,10 +25,7 @@ function is_logged_in() {
 
 function login() {
   LOGGED_IN = true;
-  alert("Loggin In...");
   init_panels();
-  $("#login-link").text('Logout');
-  $("#create-account-link").addClass("hidden");
   load_action_panel();
   load_multi_panel();
   load_chat_panel();
@@ -36,10 +33,7 @@ function login() {
 
 function logout() {
   LOGGED_IN = false;
-  alert("Logging Out...");
   init_panels();
-  $("#login-link").text("Login");
-  $("#create-account-link").removeClass("hidden");
 }
 
 function toggle_login_state() {
