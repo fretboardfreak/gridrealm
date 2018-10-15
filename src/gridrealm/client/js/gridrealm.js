@@ -94,7 +94,27 @@ function resize_panels() {
   $("#multi-panel").width(window_width * 0.3)
   $("#chat-panel").width(window_width * 0.6)
 
+  resize_multipanel_content();
   update_size_record();
+}
+
+function resize_multipanel_content() {
+  var height = $("#multi-panel").height();
+  var content_height = height * 0.8;
+  var nav_height = height * 0.2;
+  $("#mp-content").height(content_height);
+  $("#mp-nav-bar").height(nav_height);
+
+
+  var width = $("#multi-panel").width();
+  $("#mp-content").width(width);
+  $("#mp-nav-bar").width(width);
+
+  $("#mp-content").children("div").height(content_height);
+
+  var tab_icon_width = width * 0.14;
+  ($("#mp-nav-bar").children('nav').children("span")
+      ).children("img").width(tab_icon_width);
 }
 
 function init_panels() {
