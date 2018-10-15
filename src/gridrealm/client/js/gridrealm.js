@@ -85,14 +85,14 @@ function get_api_version(success) {
 
 function resize_panels() {
   var window_height = $(window).height();
-  $("#action-panel").height(window_height * 0.6)
-  $("#multi-panel").height(window_height * 0.9)
-  $("#chat-panel").height(window_height * 0.3)
+  $("#action-panel").height(window_height * 0.6);
+  $("#multi-panel").height(window_height * 0.9);
+  $("#chat-panel").height(window_height * 0.3);
 
   var window_width = $(window).width();
-  $("#action-panel").width(window_width * 0.6)
-  $("#multi-panel").width(window_width * 0.3)
-  $("#chat-panel").width(window_width * 0.6)
+  $("#action-panel").width(window_width * 0.6);
+  $("#multi-panel").width(window_width * 0.3);
+  $("#chat-panel").width(window_width * 0.6);
 
   resize_multipanel_content();
   update_size_record();
@@ -176,22 +176,14 @@ function load_chat_panel() {
 /* Debug Code */
 
 function add_size(panel_id) {
-  var str = panel_id;
-  str += ": ";
-  str += $(panel_id).innerWidth();
-  str += "x";
-  str += $(panel_id).innerHeight();
-  return str
+  return (panel_id + ": " + $(panel_id).innerWidth() + "x" +
+          $(panel_id).innerHeight());
 }
 
 function update_size_record() {
-  var str = "";
-  str += add_size("#action-panel");
-  str += " | ";
-  str += add_size("#multi-panel");
-  str += " | ";
-  str += add_size("#chat-panel");
-  $("#size-record").text(str);
+  $("#size-record").text(add_size("#action-panel") + " | " +
+                         add_size("#multi-panel") + " | " +
+                         add_size("#chat-panel"));
 }
 
 /* /Debug Code */
