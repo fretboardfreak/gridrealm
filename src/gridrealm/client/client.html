@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
   <title>Grid Realm</title>
   <meta name="date" content="2018-10-04 10:30" />
   <meta name="author" content="Curtis Sand, Dennison Gaetz" />
@@ -12,20 +13,14 @@
 </head>
 <body>
   <div class="container-fluid">
-    <div class="row"> <!-- Navigation Bar -->
+    <div class="row mx-auto"> <!-- Navigation Bar -->
       <div class="col-sm-2">
         <a class="reference external" href="docs">Documentation</a>
       </div>
-      <div class="col-sm-9"></div>
-      <div id="col-sm-1">
-        <div id="login-link" onclick="toggle_login_state()">Login</div>
-        <div id="create-account-link" onclick="create_account()">Create Account</div>
-      </div>
     </div>
 
-    <div id="nologin">
-      <h1 class="title">Grid Realm</h1>
-      <table class="docinfo" frame="void" rules="none">
+    <div class="row" id="nologin"> <!-- No login -->
+      <table class="docinfo float-right" frame="void" rules="none">
         <col class="docinfo-name" />
         <col class="docinfo-content" />
         <tbody valign="top">
@@ -35,39 +30,99 @@
               <td>Curtis Sand, Dennison Gaetz</td></tr>
         </tbody>
       </table>
-
-      <hr class="docutils" />
-
-      <div id="gridrealm-media">
-          <!-- TODO: This is the not logged in page. Media or screenshots can go here.-->
-          This is the "not logged in" portion of the client page. Media or
-          screenshots can go here.
+      <br>
+      <hr class="docutils">
+      <div id="gridrealm-login" class="mx-auto">
+        <h1 class="title">Grid Realm</h1><br>
+        <div id="login-link" onclick="toggle_login_state()">Login</div><br>
+        <div id="create-account-link"
+             onclick="create_account()">Create Account</div>
       </div>
     </div>
 
-  <div class="container-fluid border">
-    <div class="row border">
-      <div class="col-8 border justify-content-center">
-        <!--<div class="container-fluid">-->
-          <div class="row border">
-            <div id="action-panel"></div>
+    <div class="container-fluid no-gutters" id="loggedin"> <!-- logged in -->
+      <div class="row mx-auto no-gutters">
+        <div class="col-8 no-gutters">
+          <div class="row border mx-auto no-gutters" id="action-panel">
+            <div class="container-fluid no-gutters w-100 h-100">
+              <div class="row no-gutters mx-auto" id="ap-image"></div>
+              <div class="row no-gutters mx-auto" id="ap-description">
+                <p class="text-center">name of thing</p>
+              </div>
+              <div class="row no-gutters">
+                <div class="container-fluid no-gutters">
+                  <div class="row no-gutters">
+                    <div class="col">button1</div>
+                    <div class="col">button2</div>
+                    <div class="col">button3</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="row border">
-            <div id="chat-panel"></div>
+          <div class="row border mx-auto no-gutters" id="chat-panel"></div>
+        </div>
+        <div class="col-4 border no-gutters">
+          <div id="multi-panel" class="row mx-auto no-gutters w-100">
+
+              <div class="row mx-auto no-gutters w-100" id="mp-content">
+                <div class="w-100" id="mp-navigation">Navigation</div>
+                <div class="w-100" id="mp-inventory">Inventory</div>
+                <div class="w-100" id="mp-skill">Skill</div>
+                <div class="w-100" id="mp-quest">Quest</div>
+                <div class="w-100" id="mp-social">Social</div>
+              </div>
+
+              <div class="row mx-auto no-gutters" id="mp-nav-bar">
+                <nav class="nav mx-auto">
+                  <span class="nav-item nav-link" id="mp-navigation-lnk"
+                        onclick="change_multipanel_view('navigation')">
+                    Nav.
+                    <br>
+                    <img src="_assets/images/multi/tabIcons/navigation.svg"
+                         class="img-fluid">
+                  </span>
+                  <span class="nav-item nav-link" id="mp-inventory-lnk"
+                        onclick="change_multipanel_view('inventory')">
+                    Inv.
+                    <br>
+                    <img src="_assets/images/multi/tabIcons/inventory.svg"
+                         class="img-fluid">
+                  </span>
+                  <span class="nav-item nav-link" id="mp-skill-lnk"
+                        onclick="change_multipanel_view('skill')">
+                    Skill
+                    <br>
+                    <img src="_assets/images/multi/tabIcons/skill.svg"
+                         class="img-fluid">
+                  </span>
+                  <span class="nav-item nav-link" id="mp-quest-lnk"
+                        onclick="change_multipanel_view('quest')">
+                    Quest
+                    <br>
+                    <img src="_assets/images/multi/tabIcons/quest.svg"
+                         `class="img-fluid">
+                  </span>
+                  <span class="nav-item nav-link" id="mp-social-lnk"
+                        onclick="change_multipanel_view('social')">
+                    Social
+                    <br>
+                    <img src="_assets/images/multi/tabIcons/social.svg"
+                         class="img-fluid">
+                  </span>
+                </nav>
+              </div>
           </div>
-          <!--</div>-->
+        </div>
       </div>
-      <div class="col-4 border justify-content-center">
-        <div id="multi-panel"></div>
+
+      <!-- debug stuff -->
+      <br><hr>
+      <div id="size-record">
       </div>
+      <!-- end debug stuff -->
     </div>
   </div>
-
-  <!-- debug stuff -->
-  <br><hr>
-  <div id="size-record">
-  </div>
-  <!-- end debug stuff -->
 </body>
 <script type="text/javascript" src="js/jquery-3.3.1.js" ></script>
 <script type="type/javascript" src="js/bootstrap.js" ></script>
