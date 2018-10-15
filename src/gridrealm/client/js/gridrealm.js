@@ -16,9 +16,6 @@
  */
 var LOGGED_IN = false;
 
-var apiVersion = "api/version";
-var apiRandomImage = "api/randomImage;"
-
 /* TODO: use this function to retrieve the authenticated session token if the
  * user is logged in. Return false otherwise.
  */
@@ -64,9 +61,13 @@ function create_account() {
 /* -------------------------------------------------------------------- */
 /* API Requests */
 
+var api = {};
+api.version = "api/version";
+api.randomImage = "api/randomImage";
+
 function get_random_image(success) {
   $.ajax({
-    url: 'api/randomImage',
+    url: api.randomImage,
     data: '',
     type: 'GET',
     success: success,
@@ -76,7 +77,7 @@ function get_random_image(success) {
 
 function get_api_version(success) {
   $.ajax({
-    url: 'api/version',
+    url: api.version,
     data: '',
     type: 'GET',
     success: success,
