@@ -91,7 +91,8 @@ class RandomImage(Resource):
                 if fname.startswith(".") or fname.startswith("_"):
                     continue
                 if fname not in images:
-                    images.append(os.path.join(Config.asset_uri, common, fname))
+                    images.append(os.path.join(
+                        Config.asset_uri, common, fname))
         return images
 
     def get(self):
@@ -104,4 +105,4 @@ API.add_resource(RandomImage, '/api/randomImage')
 # ---- / REST API ----
 
 if __name__ == '__main__':
-    APP.run(debug=True)
+    APP.run(host="0.0.0.0", port="80", debug=True)
