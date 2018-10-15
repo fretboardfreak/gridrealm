@@ -133,52 +133,42 @@ function init_panels() {
   }
 }
 
-function get_image_style(width, height) {
-  /* Build style string for image tags with width and height properties.
-   *     <img style="width=100%;height=100%;"/>
-   */
-  var style_str = "\"";
-  if (width) {
-    style_str += "width:" + width + ";";
-  }
-  else {
-    style_str += "width:100%;";
-  }
-  if (height) {
-    style_str += "height:" + height + ";";
-  }
-  else {
-    style_str += "height:100%;";
-  }
-  style_str += "\"";
-  return style_str;
+function build_image_tag(source, height) {
+  if (typeof height === 'undefined') height = "auto";
+  return ("<img class=\"img-fluid mx-auto\" style\"object-fit:contain;" +
+          " height: " + height + ";\" src=\"" + source + "\"/>");
 }
 
-function load_action_panel() {
-  get_random_image(function (response) {
-    var temp_content = "<p>action panel</p><img src=\"" + response.randomImage + "\" style=";
-    temp_content += get_image_style() + "/>";
-    $("#action-panel").html(temp_content);
-    console.log('Added image to action panel');
+function add_random_image(tag, height) {
+  if (typeof height === 'undefined') height = "auto";
+  get_random_image(function (response){
+    tag.html(build_image_tag(response.randomImage, height));
   });
 }
 
+function change_multipanel_view(panel) {
+  var full_panel_name = "#mp-" + panel;
+  // disable all tabs first
+  $("#mp-content").children().hide();
+  $("#mp-nav-bar").children('nav').children('span').removeClass('active');
+  // then enable the one we want to see
+  $(full_panel_name + "-lnk").addClass('active');
+  $(full_panel_name).show();
+}
+
+function load_action_panel() {
+  add_random_image($("#ap-image"));
+}
+
 function load_multi_panel() {
-  get_random_image(function (response) {
-    var temp_content = "<p>multi panel</p><img src=\"" + response.randomImage + "\" style=";
-    temp_content += get_image_style() + "/>";
-    $("#multi-panel").html(temp_content);
-    console.log('Added image to multi panel');
+  change_multipanel_view('navigation'); // default view is nav
+  $("#mp-content").children("div").each(function () {
+    add_random_image($(this));
   });
 }
 
 function load_chat_panel() {
-  get_random_image(function (response) {
-    var temp_content = "<p>chat panel</p><img src=\"" + response.randomImage + "\" style=";
-    temp_content += get_image_style() + "/>";
-    $("#chat-panel").html(temp_content);
-    console.log('Added image to chat panel');
-  });
+  add_random_image($("#chat-panel"));
 }
 
 /* /General Code */
