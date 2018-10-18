@@ -99,7 +99,6 @@ class PylintCommand(DevelopmentCommand):
 
     def run(self):
         """Prepare and run the Pylint command."""
-        super().run()
         command = ['pylint']
         rcfile = self.pylint_rcfile
         if not rcfile and os.path.exists('pylintrc'):
@@ -119,7 +118,6 @@ class Pep8Command(DevelopmentCommand):
 
     def run(self):
         """Run the pep8 checker."""
-        super().run()
         self._run_command(['pep8', '--statistics', '--verbose'] +
                           self.test_paths)
 
@@ -132,7 +130,6 @@ class Pep257Command(DevelopmentCommand):
 
     def run(self):
         """Run the pep257 checker."""
-        super().run()
         self._run_command(['pep257', '--count', '--verbose'] +
                           self.test_paths)
 
@@ -145,7 +142,6 @@ class UnitTestCommand(DevelopmentCommand):
 
     def run(self):
         """Run the unittests."""
-        super().run()
         # load test suite
         test_loader = unittest.defaultTestLoader
         setup_dir, _ = os.path.split(__file__)
@@ -191,7 +187,6 @@ class Test(test):
     def run(self):
         """Run all tests and checkers for project."""
         # Skip parent method to avoid reinstalling packages
-        # super().run()
         self.run_command('pep8')
         self._interactive_pause()
         self.run_command('pep257')
