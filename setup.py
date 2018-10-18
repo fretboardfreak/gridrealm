@@ -29,6 +29,12 @@ def readme():
         return readmef.read()
 
 
+def version():
+    """Read the version file for the project version."""
+    with open("VERSION.rst", 'r') as versionf:
+        return versionf.read().strip()
+
+
 class SetupCommand(Command):
     """Base command for distutils in the project."""
 
@@ -199,7 +205,7 @@ class Test(test):
 
 setup(
     name='gridrealm',
-    version='0.0',
+    version=version(),
     description='',
     long_description=readme(),
     url='http://fretboardfreak.com/gridrealm',
