@@ -110,15 +110,15 @@ class PylintCommand(DevelopmentCommand):
         self._run_command(command)
 
 
-class Pep8Command(DevelopmentCommand):
-    """A custom command to run pep8 on all python source files."""
+class PycodestyleCommand(DevelopmentCommand):
+    """A custom command to run pycodestyle on all python source files."""
 
-    description = "Run pep8 on all python sources."
+    description = "Run pycodestyle on all python sources."
     user_options = []
 
     def run(self):
-        """Run the pep8 checker."""
-        self._run_command(['pep8', '--statistics', '--verbose'] +
+        """Run the pycodestyle checker."""
+        self._run_command(['pycodestyle', '--statistics', '--verbose'] +
                           self.test_paths)
 
 
@@ -169,9 +169,9 @@ class DevInstallCommand(SetupCommand):
 
 
 class Test(test):
-    """Combine unittest, pep8 and pylint checks all into one command."""
+    """Combine unittest, pycodestyle and pylint checks all into one command."""
 
-    description = "Run pep8, pylint and unittest commands together."
+    description = "Run pycodestyle, pylint and unittest commands together."
     user_options = [('interactive', 'i', 'Enable interactive pauses.')]
 
     def __init__(self, *args, **kwargs):
@@ -187,7 +187,7 @@ class Test(test):
     def run(self):
         """Run all tests and checkers for project."""
         # Skip parent method to avoid reinstalling packages
-        self.run_command('pep8')
+        self.run_command('pycodestyle')
         self._interactive_pause()
         self.run_command('pep257')
         self._interactive_pause()
@@ -225,7 +225,7 @@ setup(
     ],
     cmdclass={
         'pylint': PylintCommand,
-        'pep8': Pep8Command,
+        'pycodestyle': PycodestyleCommand,
         'unittest': UnitTestCommand,
         'pep257': Pep257Command,
         'test': Test,
