@@ -73,7 +73,12 @@ pytests: engine
 .PHONY: client
 client : build dist css js
 	cp src/client/client.html dist/client/
+	cp node_modules/bootstrap/dist/js/bootstrap.min.js dist/client/js/
+	cp node_modules/jquery/dist/jquery.min.js dist/client/js/
 
+.PHONY: run
+run :
+	pushd dist/engine ; sudo ../../pyvenv/bin/python main.py ; popd
 
 # clean targets
 
@@ -173,4 +178,4 @@ pybuild :
 
 .PHONY: js
 js :
-	npx rollup -c
+	npx rollup -c --no-interop --no-treeshake
