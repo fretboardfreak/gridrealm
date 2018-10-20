@@ -21,9 +21,9 @@ API = Api(APP)
 class Config(object):
     """A set of configuration options for the API server."""
     debug = True
-    asset_path = "client/_assets"
-    css_stub = "client/css/%s"
-    js_stub = "client/js/%s"
+    asset_path = "../../_assets"
+    css_stub = "../client/css/%s"
+    js_stub = "../client/js/%s"
     asset_stub = asset_path + "/%s"
     asset_uri = '_assets'
     docs_stub = "docs/%s"
@@ -35,7 +35,7 @@ def _abort_if_file_missing(path, errno=404):
 
 @APP.route('/')
 def index():
-    client = "client/client.html"
+    client = "../client/client.html"
     _abort_if_file_missing(client)
     return send_file(client)
 
