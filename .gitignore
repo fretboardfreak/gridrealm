@@ -1,3 +1,11 @@
 !.gitignore
 
 _assets
+
+build
+dist
+
+node_modules
+pyvenv
+
+src/gridrealm.egg-info
