@@ -4,7 +4,7 @@ Grid Realms Development
 
 :author: Curtis Sand <curtissand@gmail.com>,
          Dennison Gaetz <djgaetz@gmail.com>
-:lastedit: 181003-1740
+:lastedit: 181021-0900
 
 - `Source <index.rst>`_
 - `Home <../index.html>`_
@@ -17,6 +17,7 @@ functional multiplayer online gaming system.
 - `Development Stack <devstack.html>`_
 - `API Server <api_server.html>`_
 - `Game Engine <game_engine.html>`_
+- `Client <client.html>`_
 
 ----
 
