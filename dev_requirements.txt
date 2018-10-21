@@ -3,3 +3,4 @@ docutils==0.14
 pep257==0.7.0
 pylint==2.1.1
 pycodestyle==2.4.0
+plantuml==0.2.1
