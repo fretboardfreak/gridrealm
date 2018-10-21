@@ -54,12 +54,18 @@ help :
 	@echo ""
 	@echo "Javascript Targets:"
 	@echo "  js : use rollup and babel to compile javascript sources."
+	@echo ""
+	@echo "Documentation Targets:"
+	@echo "  doc: Compile the documentation into the dist dir."
+	@echo "  docbuild: Copy documentation sources into build dir."
+	@echo "  doc-html: Build all RST files into HTML files in build dir."
+	@echo "  doc-uml: Build all PlantUML descriptions into images in build dir."
 
 
 # Component build targets
 
 .PHONY: all
-all: client engine pytests
+all: client engine pytests doc
 	@echo "all target"
 
 .PHONY: engine
@@ -179,3 +185,25 @@ pybuild :
 .PHONY: js
 js :
 	npx rollup -c --no-interop --no-treeshake
+
+
+# Documentation Targets
+
+.PHONY: docbuild
+docbuild : build
+	cp -r src/docs $(BUILD_DIR)
+
+.PHONY: doc-uml
+doc-uml : docbuild
+	source $(PYVENV)/bin/activate;\
+	find $(BUILD_DIR)/docs -iname "*.puml" \
+		-exec ./bin/puml.py --verbose '{}' ';' ;\
+	deactivate
+
+.PHONY: doc-html
+doc-html : docbuild
+	./bin/buildDocs.sh
+
+.PHONY: doc
+doc : doc-uml doc-html dist
+	cp -r $(BUILD_DIR)/docs $(DIST_DIR)/docs
