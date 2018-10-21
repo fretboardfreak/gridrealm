@@ -1,0 +1,18 @@
+@startuml
+
+class Player {
+  # username varchar
+  + x_location int : FK World
+  + y_location int : FK World
+}
+
+class World {
+  # x_location int
+  # y_location int
+  + bg_asset varchar
+}
+
+World::x_location --> Player::x_location : FK
+World::y_location --> Player::y_location : FK
+
+@enduml

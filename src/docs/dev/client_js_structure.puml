@@ -1,0 +1,68 @@
+@startuml
+
+skinparam packageStyle rectangle
+
+class gridrealm {
+  + IIFE DocumentReadyEvent
+  + IIFE WindowResizeEvent
+}
+
+class auth {
+  is_logged_in()
+  toggle_login_state()
+  create_account()
+  init_panels()
+}
+
+class api {
+  Enum uri
+  Object api
+  Object api_helpers
+}
+
+class util {
+  get_font_size()
+  build_image_tag()
+}
+
+class debug {
+  add_size()
+  update_size_record()
+}
+
+class chat_panel {
+  load_chat_panel()
+}
+
+class action_panel {
+  load_action_panel()
+}
+
+class multi_panel {
+  load_multi_panel()
+  change_multipanel_view()
+  resize_multipanel_content()
+}
+
+class resize {
+  resize_panels()
+}
+
+gridrealm <-- auth
+gridrealm <-- api
+gridrealm <-- resize
+auth <-- chat_panel
+auth <-- action_panel
+auth <-- multi_panel
+auth <-- resize
+resize <-- multi_panel
+resize <-- debug
+resize <-- util
+chat_panel <-- util
+chat_panel <-- api
+action_panel <-- util
+action_panel <-- api
+multi_panel <-- util
+multi_panel <-- api
+
+@enduml
