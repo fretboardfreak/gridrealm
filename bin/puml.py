@@ -65,7 +65,6 @@ class DebugAction(argparse.Action):
 
     def __call__(self, parser, namespace, values, option_string=None):
         """Enable the debugging option."""
-        print('Enabling debugging output.')
         global DEBUG
         DEBUG = True
         setattr(namespace, self.dest, True)
@@ -79,7 +78,6 @@ class VerboseAction(DebugAction):
 
     def __call__(self, parser, namespace, values, option_string=None):
         """Enable the verbose option."""
-        print('Enabling verbose output.')
         global VERBOSE
         VERBOSE = True
         setattr(namespace, self.dest, True)
