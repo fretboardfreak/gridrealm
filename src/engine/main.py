@@ -26,7 +26,7 @@ class Config(object):
     js_stub = "../client/js/%s"
     asset_stub = asset_path + "/%s"
     asset_uri = '_assets'
-    docs_stub = "docs/%s"
+    docs_stub = "../docs/%s"
 
 
 def _abort_if_file_missing(path, errno=404):
