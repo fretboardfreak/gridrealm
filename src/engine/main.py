@@ -69,7 +69,6 @@ def docs(doc=None):
 
 @APP.route('/favicon.ico')
 def favicon():
-    print('looking for favicon')
     _abort_if_file_missing(Config.favicon_uri)
     return send_file(Config.favicon_uri)
 
