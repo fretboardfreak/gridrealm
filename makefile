@@ -57,6 +57,7 @@ help :
 	@echo ""
 	@echo "Documentation Targets:"
 	@echo "  doc: Compile the documentation into the dist dir."
+	@echo "  docs: alias for doc target"
 	@echo "  docbuild: Copy documentation sources into build dir."
 	@echo "  doc-html: Build all RST files into HTML files in build dir."
 	@echo "  doc-uml: Build all PlantUML descriptions into images in build dir."
@@ -217,4 +218,9 @@ doc-html : docbuild
 
 .PHONY: doc
 doc : doc-uml doc-html dist
-	cp -r $(BUILD_DIR)/docs $(DIST_DIR)/docs
+	mkdir $(DIST_DIR)/docs;\
+	cp -r $(BUILD_DIR)/docs/* $(DIST_DIR)/docs/
+
+.PHONY: docs
+docs : doc
+	@echo
