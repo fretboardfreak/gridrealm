@@ -20,31 +20,12 @@ TBD
 Database ER Design
 ------------------
 
-I am working on the design using the PlantUML system. At the moment I'm using the `online tool <https://www.planttext.com/>`_.
+I am working on the design using the PlantUML system. At the moment I'm using
+the `online tool <https://www.planttext.com/>`_. The image below descripes the
+ERD structure of the database.
 
-.. note:: TODO: find the link to embed this plantUML in the built docs.
-
-::
-    @startuml
-
-    class Player {
-    # username varchar
-    + x_location int : FK World
-    + y_location int : FK World
-    }
-
-    class World {
-      # x_location int
-      # y_location int
-      + bg_asset varchar
-    }
-
-    World::x_location --> Player::x_location : FK
-    World::y_location --> Player::y_location : FK
-
-    @enduml
-
-.. note:: In the uml above a "class" represents a table, and the items within the class represent the columns. The columns with the # are the primary keys. Foreign keys are marked with an FK and with a relationship line.
+.. image:: ./database_erd.png
+    :target: ./database_erd.puml
 
 ----
 
