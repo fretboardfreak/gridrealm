@@ -27,6 +27,7 @@ class Config(object):
     asset_stub = asset_path + "/%s"
     asset_uri = '_assets'
     docs_stub = "../docs/%s"
+    favicon_uri = asset_stub % "images/favicon.ico"
 
 
 def _abort_if_file_missing(path, errno=404):
@@ -65,6 +66,12 @@ def docs(doc=None):
     fpath = Config.docs_stub % doc
     _abort_if_file_missing(fpath)
     return send_file(fpath)
+
+@APP.route('/favicon.ico')
+def favicon():
+    print('looking for favicon')
+    _abort_if_file_missing(Config.favicon_uri)
+    return send_file(Config.favicon_uri)
 
 # ---- REST API ----
 
