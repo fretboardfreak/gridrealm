@@ -84,6 +84,10 @@ function get_api_version(success) {
 /* -------------------------------------------------------------------- */
 /* General Code */
 
+function get_font_size() {
+  return parseFloat(getComputedStyle($('html')[0]).fontSize);
+}
+
 function resize_panels() {
   var window_height = $(window).height();
   $("#action-panel").height(window_height * 0.6);
@@ -112,10 +116,13 @@ function resize_multipanel_content() {
   $("#mp-nav-bar").width(width);
 
   $("#mp-content").children("div").height(content_height);
+  ($("#mp-content").children("div").children("img")
+    ).css("max-height", content_height);
 
-  var tab_icon_width = width * 0.14;
-  ($("#mp-nav-bar").children('nav').children("span")
-      ).children("img").width(tab_icon_width);
+  var tab_icon_width = width / 5.5;
+  $("#mp-nav-bar").children('nav').children("span").width(tab_icon_width);
+  ($("#mp-nav-bar").children('nav').children("span").children("img")
+    ).css("max-height", nav_height - get_font_size());
 }
 
 function init_panels() {
@@ -136,7 +143,7 @@ function init_panels() {
 
 function build_image_tag(source, height) {
   if (typeof height === 'undefined') height = "auto";
-  return ("<img class=\"img-fluid mx-auto\" style\"object-fit:contain;" +
+  return ("<img class=\"img-fluid mx-auto\" style\"" +
           " height: " + height + ";\" src=\"" + source + "\"/>");
 }
 
