@@ -84,7 +84,9 @@ client : build dist css js
 
 .PHONY: run
 run :
-	pushd dist/engine ; sudo ../../pyvenv/bin/python main.py ; popd
+	pushd dist/engine ;\
+	sudo ../../pyvenv/bin/python main.py ;\
+	popd
 
 # clean targets
 
@@ -147,7 +149,8 @@ css-lint :
 
 .PHONY: css-compile
 css-compile :
-	npx node-sass --include-path node_modules/bootstrap/scss/ src/client/css/gridrealm.scss -o build/client/css/
+	npx node-sass --include-path node_modules/bootstrap/scss/ \
+		src/client/css/gridrealm.scss -o build/client/css/
 
 .PHONY: css-prefix
 css-prefix :
@@ -165,19 +168,27 @@ pyvenv :
 
 .PHONY: pylint
 pylint :
-	source $(PYVENV)/bin/activate; $(PYTHON) setup.py pylint; deactivate
+	source $(PYVENV)/bin/activate;\
+	$(PYTHON) setup.py pylint;\
+	deactivate
 
 .PHONY: pep257
 pep257 :
-	source $(PYVENV)/bin/activate; $(PYTHON) setup.py pep257; deactivate
+	source $(PYVENV)/bin/activate;\
+	$(PYTHON) setup.py pep257;\
+	deactivate
 
 .PHONY: pycodestyle
 pycodestyle :
-	source $(PYVENV)/bin/activate; $(PYTHON) setup.py pycodestyle; deactivate
+	source $(PYVENV)/bin/activate;\
+	$(PYTHON) setup.py pycodestyle;\
+	deactivate
 
 .PHONY: pybuild
 pybuild :
-	source $(PYVENV)/bin/activate; $(PYTHON) setup.py build; deactivate
+	source $(PYVENV)/bin/activate;\
+	$(PYTHON) setup.py build;\
+	deactivate
 
 
 # js targets
