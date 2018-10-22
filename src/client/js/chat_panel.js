@@ -9,5 +9,5 @@
 import {APIhelpers} from "./api.js"
 
 export function load_chat_panel() {
-  APIhelpers.add_random_image($("#chat-panel"));
+  APIhelpers.add_random_action_image($("#chat-panel"));
 }
