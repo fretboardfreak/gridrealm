@@ -7,7 +7,7 @@ GR: API Server
 :lastedit: 181003-2300
 
 - `Source <api_server.rst>`_
-- `Home <../index.hmtl>`_
+- `Home <../index.html>`_
 - `Back to Development <index.html>`_
 
 ----

@@ -50,8 +50,8 @@ Server is to bridge the gap between the `Client`_ and the `Game Engine`_.
 For example a type of request the client might send is "For player X with
 encrypted session ID Y, please send me details about the map". The API Server
 then verifies the login and session IDs with the `Game Engine`_ and calls a
-routine to lookup and send back info on the map assets that the client needs to
-load from the `Asset Server`_ in order to respond to the user.
+routine to lookup and send back info on the map assets that the client needs in
+order to respond to the user.
 
 The API Server will be written in Python 3 using `Flask
 <http://flask.pocoo.org>`_ to perform the RESTfull communication.
