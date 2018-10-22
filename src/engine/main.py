@@ -87,10 +87,13 @@ class RandomImage(Resource):
     This is intended for use as a means of testing.
     """
 
-    def _load_image_list(self):
+    def _load_image_list(self, specific_path=None):
         images = []
         assets = "_assets"
-        for dpath, dnames, fnames in os.walk(Config.asset_path):
+        start_path = Config.asset_path
+        if specific_path:
+            start_path = os.path.join(Config.asset_path, specific_path)
+        for dpath, dnames, fnames in os.walk(start_path):
             common = dpath[dpath.find(assets) + len(assets):]
             common = common[1:] if common.startswith('/') else common
             for fname in fnames:
@@ -102,11 +105,21 @@ class RandomImage(Resource):
         return images
 
     def get(self):
-        return {'randomImage': random.choice(self._load_image_list())}
+        return {'image': random.choice(self._load_image_list())}
+
+class RandomActionImage(RandomImage):
+    def get(self):
+        return {'image': random.choice(self._load_image_list("images/action"))}
+
+class RandomInventoryImage(RandomImage):
+    def get(self):
+        return {'image': random.choice(self._load_image_list("images/multi/inventoryIcons"))}
 
 
 API.add_resource(Version, '/api/version')
 API.add_resource(RandomImage, '/api/randomImage')
+API.add_resource(RandomActionImage, '/api/randomActionImage')
+API.add_resource(RandomInventoryImage, '/api/randomInventoryImage')
 
 # ---- / REST API ----
 
