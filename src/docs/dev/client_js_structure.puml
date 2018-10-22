@@ -49,7 +49,6 @@ class resize {
 }
 
 gridrealm <-- auth
-gridrealm <-- api
 gridrealm <-- resize
 auth <-- chat_panel
 auth <-- action_panel
