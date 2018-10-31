@@ -8,7 +8,7 @@ import inject from 'rollup-plugin-inject';
 export default {
   input: 'src/client/js/gridrealm.js',
   output: {
-    file: 'dist/client/js/gridrealm.js',
+    file: 'dist/gridrealm/static/client/js/gridrealm.js',
     format: 'cjs'
   },
   external: ['bootstrap', 'jquery'],
