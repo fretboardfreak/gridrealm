@@ -66,7 +66,7 @@ class SetupCommand(Command):
     @property
     def software_package(self):
         """Get the path to the software parkace."""
-        return os.path.join(self.setup_path, 'src/engine')
+        return os.path.join(self.setup_path, 'src/gridrealm')
 
     @property
     def test_paths(self):
