@@ -20,7 +20,10 @@ help :
 	@echo "  all : Build and compile all project components."
 	@echo "  engine : Build the API Engine component."
 	@echo "  client : Build the Client component."
-	@echo "  pytests: Build the Python Tests."
+	@echo "  pytests : Build the Python Tests."
+	@echo "  assets : Put copy of the asset dir in dist."
+	@echo "  scripts: Put copy of each script in dist."
+	@echo "  dev-loop: Execute 'clean-dist', 'all' and 'run' targets in order.."
 	@echo ""
 	@echo "Clean Targets:"
 	@echo "  clean : Clean all built files."
@@ -33,11 +36,14 @@ help :
 	@echo "Misc Targets:"
 	@echo "  dist : Make dist dir."
 	@echo "  build : Make build dir."
+	@echo "  static : Make static dir inside dist dir."
+	@echo "  client-dir : Make client dir inside the static dir."
 	@echo ""
 	@echo "Install Targets:"
-	@echo "  install : install required pkgs for development."
+	@echo "  install-dev : install required pkgs for development."
 	@echo "  install-py : install python packages with pip."
-	@echo "  install-npm: install NPM packages."
+	@echo "  install-npm : install NPM packages."
+	@echo "  install : install gridrealm in the pyvenv."
 	@echo ""
 	@echo "CSS Targets:"
 	@echo "  css : Run both css-compile and css-prefix."
@@ -66,28 +72,43 @@ help :
 # Component build targets
 
 .PHONY: all
-all: client engine pytests doc
+all: client engine pytests doc assets scripts
 	@echo "all target"
 
 .PHONY: engine
 engine: pybuild
-	cp -r $(BUILD_DIR)/lib/engine $(DIST_DIR)/
+	cp -r $(BUILD_DIR)/lib/gridrealm $(DIST_DIR)/
 
 .PHONY: pytests
 pytests: engine
 	cp -r $(BUILD_DIR)/lib/tests $(DIST_DIR)/
 
 .PHONY: client
-client : build dist css js
-	cp src/client/client.html dist/client/
-	cp node_modules/bootstrap/dist/js/bootstrap.min.js dist/client/js/
-	cp node_modules/jquery/dist/jquery.min.js dist/client/js/
+client : build dist engine static client-dir css js
+	mkdir -p dist/gridrealm/templates
+	cp src/client/client.html dist/gridrealm/templates/
+	cp node_modules/bootstrap/dist/js/bootstrap.min.js \
+		dist/gridrealm/static/client/js/
+	cp node_modules/jquery/dist/jquery.min.js dist/gridrealm/static/client/js/
+
+.PHONY: assets
+assets: dist static
+	cp -r _assets dist/gridrealm/static/
+
+.PHONY: scripts
+scripts: dist
+	cp -r scripts/* $(DIST_DIR)
 
 .PHONY: run
 run :
-	pushd dist/engine ;\
-	sudo ../../pyvenv/bin/python main.py ;\
+	pushd dist/ ;\
+	sudo ../pyvenv/bin/python runGR.py -c ../dev.cfg --public --port 80 --debug;\
 	popd
+
+.PHONY: dev-loop
+dev-loop: clean-dist all run
+	@echo "all target"
+
 
 # clean targets
 
@@ -97,7 +118,7 @@ clean-build :
 
 .PHONY: clean-dist
 clean-dist :
-	rm -rf $(DIST_DIR)
+	sudo rm -rf $(DIST_DIR)
 
 .PHONY: clean-pyvenv
 clean-pyvenv :
@@ -125,12 +146,25 @@ build :
 dist :
 	mkdir $(DIST_DIR)
 
+.PHONY: static
+static : engine
+	mkdir -p $(DIST_DIR)/gridrealm/static
+
+.PHONY: client-dir
+client-dir : static
+	mkdir -p $(DIST_DIR)/gridrealm/static/client/js
+	mkdir -p $(DIST_DIR)/gridrealm/static/client/css
+
 
 # install targets
 
 .PHONY: install
-install : install-npm install-py
-	@echo "install target"
+install : install-dev
+	$(PYVENV)/bin/python setup.py install
+
+.PHONY: install-dev
+install-dev : install-npm install-py
+	@echo "install-dev target"
 
 .PHONY: install-py
 install-py : pyvenv
@@ -155,7 +189,8 @@ css-compile :
 
 .PHONY: css-prefix
 css-prefix :
-	npx postcss --use autoprefixer --dir dist/client/css/ build/client/css/
+	npx postcss --use autoprefixer --dir dist/gridrealm/static/client/css/ \
+		build/client/css/
 
 .PHONY: css
 css : css-compile css-prefix
@@ -218,8 +253,8 @@ doc-html : docbuild
 
 .PHONY: doc
 doc : doc-uml doc-html dist
-	mkdir $(DIST_DIR)/docs;\
-	cp -r $(BUILD_DIR)/docs/* $(DIST_DIR)/docs/
+	mkdir -p $(DIST_DIR)/gridrealm/static/docs ;\
+		cp -r $(BUILD_DIR)/docs/* $(DIST_DIR)/gridrealm/static/docs/
 
 .PHONY: docs
 docs : doc
