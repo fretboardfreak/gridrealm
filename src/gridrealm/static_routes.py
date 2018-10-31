@@ -11,9 +11,10 @@ def index():
     return render_template(Config().assets.client_uri)
 
 
-def asset(asset_str):
+def assets(asset):
     """Static route for game asset files."""
-    fpath = Config().assets.asset_stub % asset_str
+    GR.APP.logger.debug('ASSET: %s' % asset)
+    fpath = Config().assets.asset_stub % asset
     return GR.APP.send_static_file(fpath)
 
 
@@ -33,7 +34,7 @@ def favicon():
 
 STATIC_VIEWS = [
     ('/', 'index', index),
-    ('/_assets/<path:asset>', 'asset', asset),
+    ('/_assets/<path:asset>', 'assets', assets),
     ('/docs/', 'docs', docs),
     ('/docs/<path:doc>', 'docs', docs),
     ('/favicon.ico', 'favicon', favicon)
