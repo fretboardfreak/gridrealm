@@ -66,7 +66,7 @@ enable=RP0004
 # no Warning level messages displayed, use"--disable=all --enable=classes
 # --disable=W"
 # disable=input-builtin,next-method-called,old-division,old-octal-literal,no-absolute-import,hex-method,long-suffix,dict-view-method,reduce-builtin,unpacking-in-except,filter-builtin-not-iterating,round-builtin,setslice-method,print-statement,indexing-exception,suppressed-message,nonzero-method,delslice-method,old-ne-operator,map-builtin-not-iterating,zip-builtin-not-iterating,unicode-builtin,unichr-builtin,import-star-module-level,intern-builtin,using-cmp-argument,backtick,metaclass-assignment,range-builtin-not-iterating,buffer-builtin,basestring-builtin,file-builtin,dict-iter-method,raw_input-builtin,cmp-builtin,parameter-unpacking,apply-builtin,oct-method,coerce-builtin,raising-string,reload-builtin,execfile-builtin,cmp-method,old-raise-syntax,standarderror-builtin,coerce-method,long-builtin,useless-suppression,xrange-builtin,getslice-method
-disable=R,global-statement
+disable=R,global-statement,not-an-iterable
 
 
 [REPORTS]
