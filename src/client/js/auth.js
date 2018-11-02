@@ -11,30 +11,32 @@ import {load_action_panel} from "./action_panel.js";
 import {load_chat_panel} from "./chat_panel.js";
 import {load_multi_panel} from "./multi_panel.js";
 import {API} from "./api.js";
+import {get_cookie} from "./util.js";
 
-/* TODO: The whole authentication process needs to be implemented. This is just
- * a stand in to start getting the client behaviour correct.
- */
-var LOGGED_IN = false;
 
 /* TODO: use this function to retrieve the authenticated session token if the
  * user is logged in. Return false otherwise.
  */
 export function is_logged_in() {
-  return LOGGED_IN;
+  var username = get_cookie('username')
+  if (username === "") {
+    return false;
+  } else {
+    return true;
+  }
 }
 
-function login() {
-  LOGGED_IN = true;
+export function login() {
   init_panels();
   load_action_panel();
   load_multi_panel();
   load_chat_panel();
+  resize_panels();
 }
 
-function logout() {
-  LOGGED_IN = false;
-  init_panels();
+export function logout() {
+  alert('logging out needs to be implemented')
+  console.log('logging out needs to be implemented...')
 }
 
 export function toggle_login_state() {
@@ -54,8 +56,6 @@ export function create_account() {
 
 export function init_panels() {
   if (is_logged_in()) {
-    console.log("disabling nologin content");
-    $("#nologin").hide();
     console.log("enabling loggedin content");
     $("#loggedin").show();
     resize_panels();
@@ -63,7 +63,5 @@ export function init_panels() {
   else { /* not logged in */
     console.log("initializing nologin content");
     $("#nologin").show();
-    console.log("disabling loggedin content");
-    $("#loggedin").hide();
   }
 }
