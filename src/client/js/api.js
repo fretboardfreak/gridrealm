@@ -74,7 +74,6 @@ export class APIhelpers {
   static add_random_inventory_image(tag, height) {
     if (typeof height === 'undefined') height = "auto";
     API.get_random_inventory_image(function (response){
-      console.log('adding inv. img ' + response.image);
       tag.html(build_image_tag(response.image, height));
     });
   }
