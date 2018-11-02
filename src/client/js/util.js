@@ -15,3 +15,8 @@ export function build_image_tag(source, height) {
   return ("<img class=\"img-fluid mx-auto\" style\"" +
           " height: " + height + ";\" src=\"" + source + "\"/>");
 }
+
+export function get_cookie(a) {
+    var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+    return b ? b.pop() : '';
+}
