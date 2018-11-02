@@ -148,6 +148,7 @@ class AssetsDefaults(Enum):
     docs_stub = "docs/%s"
     favicon_uri = os.path.join(asset_path, "images/favicon.ico")
     client_uri = "client.html"
+    landing_uri = "landing.html"
 
 
 class Section(Enum):

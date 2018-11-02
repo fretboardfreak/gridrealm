@@ -86,7 +86,7 @@ pytests: engine
 .PHONY: client
 client : build dist engine static client-dir css js
 	mkdir -p dist/gridrealm/templates
-	cp src/client/client.html dist/gridrealm/templates/
+	cp src/client/*.html dist/gridrealm/templates/
 	cp node_modules/bootstrap/dist/js/bootstrap.min.js \
 		dist/gridrealm/static/client/js/
 	cp node_modules/jquery/dist/jquery.min.js dist/gridrealm/static/client/js/

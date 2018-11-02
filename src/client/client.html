@@ -14,24 +14,8 @@
       <div class="col-sm-2">
         <a class="reference external" href="docs">Documentation</a>
       </div>
-    </div>
-
-    <div class="row" id="nologin"> <!-- No login -->
-      <table class="float-right" frame="void" rules="none">
-        <col/>
-        <col/>
-        <tbody valign="top">
-          <tr><th>Date:</th><td>2018-10-22 09:30</td></tr>
-          <tr><th>Author:</th><td>Curtis Sand, Dennison Gaetz</td></tr>
-        </tbody>
-      </table>
-      <br>
-      <hr>
-      <div id="gridrealm-login" class="mx-auto">
-        <h1 class="title">Grid Realm</h1><br>
-        <div id="login-link" onclick="toggle_login_state()">Login</div><br>
-        <div id="create-account-link"
-             onclick="create_account()">Create Account</div>
+      <div class="col-sm-2 float-right">
+        <a class="reference external" href="{{ url_for('logout') }}">Logout</a>
       </div>
     </div>
 
@@ -41,21 +25,14 @@
           <div class="row border mx-auto no-gutters" id="action-panel">
             <div class="container-fluid no-gutters w-100 h-100">
               <div class="row no-gutters mx-auto" id="ap-image"></div>
-              <div class="row no-gutters mx-auto" id="ap-description">
-                <p class="text-center">name of thing</p>
-              </div>
-              <div class="row no-gutters">
-                <div class="container-fluid no-gutters">
-                  <div class="row no-gutters">
-                    <div class="col">button1</div>
-                    <div class="col">button2</div>
-                    <div class="col">button3</div>
-                  </div>
-                </div>
-              </div>
+              <div class="row no-gutters mx-auto" id="ap-description"></div>
+              <div class="row no-gutters mx-auto" id="ap-actions"></div>
             </div>
           </div>
-          <div class="row border mx-auto no-gutters" id="chat-panel"></div>
+          <div class="row border mx-auto no-gutters">
+            <div class="container-fluid" id="chat-panel"
+                 style="overflow-y: auto;"></div>
+          </div>
         </div>
         <div class="col-4 border no-gutters"> <!-- left 1 third wide column -->
           <div id="multi-panel" class="row mx-auto no-gutters w-100">
