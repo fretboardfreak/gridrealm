@@ -10,6 +10,7 @@ use.
 from argparse import ArgumentParser
 from flask import Flask
 from flask_restful import Api
+import gevent.monkey
 
 import gridrealm
 from gridrealm.static_routes import register_static_views
@@ -17,6 +18,7 @@ from gridrealm.api import random_image
 from gridrealm.api import version
 from gridrealm.config import Config
 from gridrealm.config import guess_a_config_location
+from gridrealm.server_events import Channel
 
 
 def cli_main():
@@ -46,11 +48,15 @@ def cli_main():
     if args.public:
         host = '0.0.0.0'
 
+    # This patches the python threading stuff with greenlets from gevent
+    gevent.monkey.patch_all()
+
     flask_app = Flask(__name__)
     rest_api = Api(flask_app)
 
     # save the flask app to a global var for the rest of the system
     gridrealm.APP = flask_app
+    gridrealm.SYS_MSG = Channel()
 
     register_static_views(flask_app)
     # Register the REST API Resources

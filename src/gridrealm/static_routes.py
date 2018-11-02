@@ -13,7 +13,6 @@ def index():
 
 def assets(asset):
     """Static route for game asset files."""
-    GR.APP.logger.debug('ASSET: %s' % asset)
     fpath = Config().assets.asset_stub % asset
     return GR.APP.send_static_file(fpath)
 
@@ -30,6 +29,11 @@ def favicon():
     """Static route for the favicon icon."""
     favicon_uri = Config().assets.favicon_uri
     return GR.APP.send_static_file(favicon_uri)
+
+
+def sysmsg():
+    """Endpoint for broadcasting system messages to client."""
+    return GR.SYS_MSG.subscribe()
 
 
 STATIC_VIEWS = [

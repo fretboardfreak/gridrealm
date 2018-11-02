@@ -7,3 +7,6 @@ from .config import Config
 
 # set by the main methods so that the APP object can be accessed from anywhere.
 APP = None
+
+# Message broadcast channels for server to client messages
+SYS_MSG = None
