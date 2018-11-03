@@ -14,6 +14,9 @@ from flask import Response
 import gevent
 from gevent.queue import Queue
 
+import gridrealm
+from gridrealm.util import ts_to_str
+
 
 def generate_id(size=6, chars=string.ascii_lowercase + string.digits):
     """Generate a short alphanumeric ID string."""
@@ -95,7 +98,7 @@ class Channel(object):
         message.
         """
         if time_prefix:
-            message = "%s: %s" % (time.strftime('%Y%m%d-%H%M%S'), message)
+            message = "%s: %s" % (ts_to_str(), message)
         sse = ServerSentEvent(str(message), None)
         self.history.append(sse)
         gevent.spawn(self.notify, sse)
