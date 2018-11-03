@@ -20,5 +20,6 @@ if __name__ == '__main__':
         print('...interrupted by user, exiting.')
         sys.exit(1)
     except Exception as exc:
-        print('Unhandled Error:\n{}'.format(exc))
+        import traceback
+        traceback.print_exc()
         sys.exit(1)
