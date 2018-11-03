@@ -1,5 +1,7 @@
 """Gridrealm Static Routes: Use Flask instead of webserver for static files."""
 
+from time import time
+
 from flask import render_template
 from flask import request
 from flask import redirect
@@ -7,7 +9,9 @@ from flask import url_for
 from flask import session
 
 import gridrealm as GR
+from gridrealm.util import ts_to_str
 from gridrealm.config import Config
+from gridrealm.database import User
 
 
 def index():
@@ -19,11 +23,27 @@ def index():
         # TODO: do something to make sure user is logged in
     if 'username' in session:
         uname = session['username']
-        GR.APP.logger.debug('User %s logged in.' % uname)
+        # see if username is in database
+        user = User.query.filter(User.name == uname).first()
+        if user is None:  # username is not in database
+            # new users have now as their last login
+            msg = 'New player named %s' % uname
+            GR.SYS_MSG.publish(msg)
+            GR.APP.logger.debug(msg)
+            user = User(uname, time())
+        else:
+            msg = '%s is back. last logout was at %s' % (
+                user.name, ts_to_str(user.last_logout))
+            GR.SYS_MSG.publish(msg)
+            GR.APP.logger.debug(msg)
+        # add new user or update existing user in the database
+        GR.DBS.add(user)
+        GR.DBS.commit()
+
         response = GR.APP.make_response(
             render_template(Config().assets.client_uri))
         response.set_cookie('username', uname)
-        GR.SYS_MSG.publish('New login by %s' % uname)
+        response.set_cookie('last_login', ts_to_str(user.last_login))
     else:
         GR.APP.logger.debug('New user at landing page.')
         response = GR.APP.make_response(
@@ -33,11 +53,25 @@ def index():
 
 def logout():
     """Log the user out of their session."""
+    # pylint cannot find the logger object on the GR.APP
+    # pylint: disable=no-member
     # remove the username from the session if it's there
-    session.pop('username', None)
+    username = session.pop('username', None)
     response = GR.APP.make_response(redirect(url_for('index')))
     # invalidate the username cookie
     response.set_cookie('username', '')
+    if username not in ['', None]:
+        user = User.query.filter(User.name == username).first()
+        msg = "User %s has logged out" % username
+        if user:
+            now = time()
+            play_time = int(now - user.last_login)
+            msg += " after %s seconds" % play_time
+            user.last_login = now
+            GR.DBS.add(user)
+            GR.DBS.commit()
+        GR.SYS_MSG.publish(msg)
+        GR.APP.logger.debug(msg)
     return response
 
 
