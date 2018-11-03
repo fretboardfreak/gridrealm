@@ -26,8 +26,8 @@ export function resize_panels() {
 
 export function resize_multipanel_content() {
   var height = $("#multi-panel").height();
-  var content_height = height * 0.8;
-  var nav_height = height * 0.2;
+  var content_height = height * 0.88;
+  var nav_height = height * 0.12;
   $("#mp-content").height(content_height);
   $("#mp-nav-bar").height(nav_height);
 
