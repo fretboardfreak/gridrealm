@@ -32,6 +32,7 @@ export function login() {
   load_multi_panel();
   load_chat_panel();
   resize_panels();
+  $("#logout-lnk").html('Logout: ' + get_cookie('username'))
 }
 
 export function logout() {
