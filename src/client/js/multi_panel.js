@@ -20,9 +20,4 @@ export function change_multipanel_view(panel) {
 
 export function load_multi_panel() {
   change_multipanel_view('navigation'); // default view is nav
-
-  APIhelpers.add_random_inventory_image($("#mp-inventory"));
-  APIhelpers.add_random_inventory_image($("#mp-skill"));
-  APIhelpers.add_random_inventory_image($("#mp-quest"));
-  APIhelpers.add_random_inventory_image($("#mp-social"));
 }
