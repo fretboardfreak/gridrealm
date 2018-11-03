@@ -7,7 +7,9 @@ server activities. A CLI main method is also provided for testing and offline
 use.
 """
 
+import sys
 from argparse import ArgumentParser
+
 from flask import Flask
 from flask_restful import Api
 import gevent.monkey
@@ -19,6 +21,8 @@ from gridrealm.api import version
 from gridrealm.config import Config
 from gridrealm.config import guess_a_config_location
 from gridrealm.server_events import Channel
+from gridrealm.database import init_db
+from gridrealm.database import load_db
 
 
 def cli_main():
@@ -42,6 +46,10 @@ def cli_main():
         '--public', action='store_true',
         help=("Accept connections from external requests using the "
               "dev server."))
+    parser.add_argument(
+        '--initdb', action='store_true',
+        help="Initialize the database and exit."
+    )
     args = parser.parse_args()
 
     host = None
@@ -58,13 +66,26 @@ def cli_main():
     gridrealm.APP = flask_app
     gridrealm.SYS_MSG = Channel()
 
+    config = Config(args.config)
+    config.update_flask(flask_app)
+
+    load_db(config.gridrealm.database_url)
+
+    if args.initdb:
+        print('Initializing Game Database and Exiting.')
+        init_db()
+        sys.exit(0)
+
+    # pylint: disable=unused-variable
+    @gridrealm.APP.teardown_appcontext
+    def shutdown_session(exception=None):
+        # pylint: disable=unused-argument
+        gridrealm.DBS.remove()
+
     register_static_views(flask_app)
     # Register the REST API Resources
     random_image.Resources.add_resources(rest_api)
     version.Resources.add_resources(rest_api)
-
-    config = Config(args.config)
-    config.update_flask(flask_app)
 
     flask_app.run(host=host, port=args.port, debug=args.debug)
 
