@@ -15,6 +15,8 @@ PYTHON = pyvenv/bin/python
 help :
 	@echo "Gridrealm Makefile Targets:"
 	@echo "  help : Print this message"
+	@echo "  run : Run a development instance of gridrealm."
+	@echo "  initdb : Initialize the development database."
 	@echo ""
 	@echo "Component Build Targets:"
 	@echo "  all : Build and compile all project components."
@@ -103,6 +105,12 @@ scripts: dist
 run :
 	pushd dist/ ;\
 	sudo ../pyvenv/bin/python runGR.py -c ../dev.cfg --public --port 80 --debug;\
+	popd
+
+.PHONY: initdb
+initdb :
+	pushd dist/ ;\
+	../pyvenv/bin/python runGR.py -c ../dev.cfg --initdb --debug;\
 	popd
 
 .PHONY: dev-loop
