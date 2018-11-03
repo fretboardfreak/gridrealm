@@ -132,6 +132,7 @@ class Config(metaclass=Singleton):
 
     @property
     def gridrealm(self):
+        """Get the 'gridrealm' section as an AttrDict."""
         if self._gridrealm_cache:
             return self._gridrealm_cache
         gr_defaults = Section.gridrealm.value

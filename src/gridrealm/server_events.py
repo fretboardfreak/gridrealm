@@ -6,7 +6,6 @@ be subscribed to by the clients.
 
 import random
 import string
-import time
 from collections import deque
 
 from flask import request
@@ -14,7 +13,6 @@ from flask import Response
 import gevent
 from gevent.queue import Queue
 
-import gridrealm
 from gridrealm.util import ts_to_str
 
 

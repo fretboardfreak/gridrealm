@@ -2,7 +2,9 @@
 
 import time
 
+
 TS_FORMAT = '%Y%m%d-%H%M%S'
+
 
 def ts_to_str(timestamp=None):
     """Convert a float timestamp into a string."""
