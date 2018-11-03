@@ -31,6 +31,8 @@ class RandomImage(Resource):
         for dpath, _, fnames in os.walk(start_path):
             common = dpath[dpath.find(assets) + len(assets):]
             common = common[1:] if common.startswith('/') else common
+            if common == "dev":
+                continue
             for fname in fnames:
                 if fname.startswith(".") or fname.startswith("_"):
                     # skip files starting with "." or "_"
@@ -54,17 +56,16 @@ class RandomActionImage(RandomImage):
     """Return a random image from the action pane assets."""
 
     uri = '/api/randomActionImage'
-    specific_path = "images/action"
+    specific_path = "action"
 
 
 class RandomInventoryImage(RandomImage):
     """Return a random image from the multi pane inventory assets."""
 
     uri = '/api/randomInventoryImage'
-    specific_path = "images/multi/inventoryIcons"
+    specific_path = "multi/inventoryIcons"
 
 
-# class RandomImageResources(Enum):
 class Resources(Enum):
     """Enum of all resources in this module."""
 

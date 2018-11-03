@@ -146,7 +146,7 @@ class AssetsDefaults(Enum):
     asset_stub = "_assets/%s"
     asset_uri = '_assets'
     docs_stub = "docs/%s"
-    favicon_uri = os.path.join(asset_path, "images/favicon.ico")
+    favicon_uri = os.path.join(asset_path, "favicon.ico")
     client_uri = "client.html"
     landing_uri = "landing.html"
 
