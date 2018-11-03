@@ -55,6 +55,7 @@ class Config(metaclass=Singleton):
             self.parser.read_file(self.file)
         self._flask_cache = None
         self._assets_cache = None
+        self._gridrealm_cache = None
 
     def get(self, section, option, fallback=None):
         """Get an Option from one of the Config Sections."""
@@ -129,12 +130,24 @@ class Config(metaclass=Singleton):
         self._assets_cache = AttrDict(**ret_val)
         return self._assets_cache
 
+    @property
+    def gridrealm(self):
+        if self._gridrealm_cache:
+            return self._gridrealm_cache
+        gr_defaults = Section.gridrealm.value
+        opt_dict = dict([(obj.name, obj.value) for obj in gr_defaults])
+        opt_dict.update(self._section_as_dict(Section.assets.name))
+        self._gridrealm_cache = AttrDict(**opt_dict)
+        return self._gridrealm_cache
+
 
 class FlaskDefaults(Enum):
     """Default values for the Flask section of the config file."""
 
     SECRET_KEY = Config.get_random_secret_key()
     LOGGER_NAME = 'gridrealm'
+    DEBUG = False
+    TESTING = False
 
 
 class AssetsDefaults(Enum):
@@ -151,8 +164,15 @@ class AssetsDefaults(Enum):
     landing_uri = "landing.html"
 
 
+class GridrealmDefaults(Enum):
+    """Default values for Gridrealm."""
+
+    database_url = "sqlite:////tmp/gridrealm.db"
+
+
 class Section(Enum):
     """String names for the sections in the gridrealm config file."""
 
     flask = FlaskDefaults
     assets = AssetsDefaults
+    gridrealm = GridrealmDefaults
