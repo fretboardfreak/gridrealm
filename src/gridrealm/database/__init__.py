@@ -7,3 +7,6 @@ from .core import load_db
 
 from .base import Base
 from .user import User
+from .map_tile import MapTile
+from .map_tile import TileType
+from .map_coord import MapCoord
