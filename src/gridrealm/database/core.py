@@ -20,4 +20,8 @@ def init_db():
     """Create the database schema in a new database."""
     # pylint: disable=unused-variable
     from gridrealm.database.user import User
+    from gridrealm.database.map_tile import MapTile
+    from gridrealm.database.map_coord import MapCoord
     db.Base.metadata.create_all(bind=gridrealm.DBE)
+    # pylint: disable=no-member
+    gridrealm.DBS.commit()
