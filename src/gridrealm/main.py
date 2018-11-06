@@ -23,6 +23,7 @@ from gridrealm.config import guess_a_config_location
 from gridrealm.server_events import Channel
 from gridrealm.database import init_db
 from gridrealm.database import load_db
+from gridrealm.database.ascii_map import create_map
 
 
 def cli_main():
@@ -74,6 +75,7 @@ def cli_main():
     if args.initdb:
         print('Initializing Game Database and Exiting.')
         init_db()
+        create_map()
         sys.exit(0)
 
     # pylint: disable=unused-variable
