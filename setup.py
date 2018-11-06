@@ -71,7 +71,8 @@ class SetupCommand(Command):
     @property
     def test_paths(self):
         """Get the list of paths for python files that should be tested."""
-        return [self.software_package, __file__]
+        return [self.software_package, __file__,
+                os.path.join(self.setup_path, 'scripts')]
 
 
 class DevelopmentCommand(SetupCommand):
