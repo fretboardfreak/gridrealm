@@ -1,16 +1,10 @@
-"""Load ASCII Map.
+"""Load gridrealm objects for manual development.
 
-The module is meant to be used manually with a python interpreter.
+Import the module using "from manual import *" inside the ipython environment
+given by "make ipy".
 """
 import gridrealm as GR
 import gridrealm.database as DB
-
-# pylint: disable=unused-import
-from gridrealm.database.ascii_map import create_map
-
-
-DATABASE_URL = 'sqlite:////tmp/grtest.db'
-DB.load_db(DATABASE_URL)
 
 
 def get_game_map():
