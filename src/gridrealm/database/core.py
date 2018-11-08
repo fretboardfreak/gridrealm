@@ -5,7 +5,7 @@ from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 
 import gridrealm
-import gridrealm.database as db
+from gridrealm.database.base import Base
 
 
 def load_db(db_url):
@@ -13,7 +13,7 @@ def load_db(db_url):
     gridrealm.DBE = create_engine(db_url, convert_unicode=True)
     gridrealm.DBS = scoped_session(
         sessionmaker(autocommit=False, autoflush=False, bind=gridrealm.DBE))
-    db.Base.query = gridrealm.DBS.query_property()
+    Base.query = gridrealm.DBS.query_property()
 
 
 def init_db():
@@ -22,6 +22,6 @@ def init_db():
     from gridrealm.database.user import User
     from gridrealm.database.map_tile import MapTile
     from gridrealm.database.map_coord import MapCoord
-    db.Base.metadata.create_all(bind=gridrealm.DBE)
+    Base.metadata.create_all(bind=gridrealm.DBE)
     # pylint: disable=no-member
     gridrealm.DBS.commit()
