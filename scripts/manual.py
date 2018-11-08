@@ -5,6 +5,20 @@ given by "make ipy".
 """
 import gridrealm as GR
 import gridrealm.database as DB
+import gridrealm.main as M
+
+DEFAULT_CLI_ARGS = ['--config', '../dev.cfg', '--debug']
+ARGS = None
+
+def load(cliargs=None):
+    if cliargs is None:
+        cliargs = DEFAULT_CLI_ARGS
+    global ARGS
+    ARGS = M.parse_args(cliargs)
+
+    M.load_config(ARGS)
+    M.load_gridrealm(ARGS)
+    M.prep_db(ARGS)
 
 
 def get_game_map():
