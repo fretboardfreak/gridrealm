@@ -3,21 +3,25 @@
 Import the module using "from manual import *" inside the ipython environment
 given by "make ipy".
 """
+
 import gridrealm as GR
 import gridrealm.database as DB
 import gridrealm.main as M
 
+
 DEFAULT_CLI_ARGS = ['--config', '../dev.cfg', '--debug']
 ARGS = None
 
+
 def load(cliargs=None):
+    """Load enough of the game that manual debugging can start."""
     if cliargs is None:
         cliargs = DEFAULT_CLI_ARGS
     global ARGS
     ARGS = M.parse_args(cliargs)
 
     M.load_config(ARGS)
-    M.load_gridrealm(ARGS)
+    M.load_flask(ARGS)
     M.prep_db(ARGS)
 
 
