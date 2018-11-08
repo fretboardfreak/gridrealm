@@ -7,8 +7,10 @@ server activities. A CLI main method is also provided for testing and offline
 use.
 """
 
+import os
 import sys
 from argparse import ArgumentParser
+from subprocess import check_call
 
 from flask import Flask
 from flask_restful import Api
@@ -26,8 +28,8 @@ from gridrealm.database import load_db
 from gridrealm.database.ascii_map import create_map
 
 
-def cli_main():
-    """The main method for the Netify app, when called from the CLI."""
+def parse_args(cliargs=None):
+    """Parse the command line arguments."""
     parser = ArgumentParser(description=__doc__)
     discovered_configs = '\n  - '.join(guess_a_config_location())
     parser.add_argument(
@@ -49,26 +51,44 @@ def cli_main():
               "dev server."))
     parser.add_argument(
         '--initdb', action='store_true',
-        help="Initialize the database and exit."
-    )
-    args = parser.parse_args()
+        help="Initialize the database and exit.")
+    parser.add_argument(
+        '--removedb', action='store_true',
+        help="Remove the database file specified in the config file.")
+    if cliargs is None:
+        return parser.parse_args()
+    else:
+        return parser.parse_args(cliargs)
 
+
+def load_flask(args):
+    """Load the gridrealm flask app."""
     host = None
     if args.public:
         host = '0.0.0.0'
+    args.host = host
 
-    # This patches the python threading stuff with greenlets from gevent
-    gevent.monkey.patch_all()
+    # save the flask app and api objects to a global var for the rest of the
+    # system
+    gridrealm.APP = Flask(__name__)
+    gridrealm.API = Api(gridrealm.APP)
 
-    flask_app = Flask(__name__)
-    rest_api = Api(flask_app)
 
-    # save the flask app to a global var for the rest of the system
-    gridrealm.APP = flask_app
-    gridrealm.SYS_MSG = Channel()
+def load_config(args):
+    """Load the configuration file."""
+    return Config(args.config)
 
-    config = Config(args.config)
-    config.update_flask(flask_app)
+
+def prep_db(args):
+    """Prepare the database engine and sessions for use."""
+    config = Config()
+    if args.removedb:
+        path = config.gridrealm.database_url
+        path = path.replace('sqlite:///', '')
+        if os.path.exists(path):
+            print('Removing database file: %s' % path)
+            check_call(['rm', '-f', path])
+        sys.exit(0)
 
     load_db(config.gridrealm.database_url)
 
@@ -84,12 +104,36 @@ def cli_main():
         # pylint: disable=unused-argument
         gridrealm.DBS.remove()
 
-    register_static_views(flask_app)
-    # Register the REST API Resources
-    random_image.Resources.add_resources(rest_api)
-    version.Resources.add_resources(rest_api)
 
-    flask_app.run(host=host, port=args.port, debug=args.debug)
+def register_flask_views():
+    """Register the views and API resources on the flask app."""
+    register_static_views(gridrealm.APP)
+    # Register the REST API Resources
+    random_image.Resources.add_resources(gridrealm.API)
+    version.Resources.add_resources(gridrealm.API)
+
+
+def run_flask_server(args):
+    """Execute the flask development server."""
+    # This patches the python threading stuff with greenlets from gevent
+    gevent.monkey.patch_all()
+
+    Config().update_flask(gridrealm.APP)
+
+    # prep a global system message server sent event channel
+    gridrealm.SYS_MSG = Channel()
+
+    gridrealm.APP.run(host=args.host, port=args.port, debug=args.debug)
+
+
+def cli_main():
+    """The main method for the Netify app, when called from the CLI."""
+    args = parse_args()
+    load_config(args)
+    load_flask(args)
+    prep_db(args)
+    register_flask_views()
+    run_flask_server(args)
 
 
 def uwsgi_main(config_file):
