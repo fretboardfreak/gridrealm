@@ -9,8 +9,9 @@ from .config import Config
 # These Globals are set by the main methods so that they can be accessed from
 # anywhere.
 
-# Flask app object
+# Flask app and Flask-Restful API objects
 APP = None
+API = None
 
 # Message broadcast channel for server to client messages
 SYS_MSG = None
