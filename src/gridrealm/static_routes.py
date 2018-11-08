@@ -44,6 +44,9 @@ def index():
             render_template(Config().assets.client_uri))
         response.set_cookie('username', uname)
         response.set_cookie('last_login', ts_to_str(user.last_login))
+        response.set_cookie('xcoord', str(user.xcoord))
+        response.set_cookie('ycoord', str(user.ycoord))
+        response.set_cookie('zcoord', str(user.zcoord))
     else:
         GR.APP.logger.debug('New user at landing page.')
         response = GR.APP.make_response(
