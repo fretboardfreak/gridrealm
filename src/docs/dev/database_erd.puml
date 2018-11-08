@@ -1,18 +1,77 @@
 @startuml
 
-class Player {
-  # username varchar
-  + x_location int : FK World
-  + y_location int : FK World
+class User {
+  # id
+  + name
+  + last_login
+  + last_logout
+  - xcoord
+  - ycoord
+  - zcoord
 }
 
-class World {
-  # x_location int
-  # y_location int
-  + bg_asset varchar
+class MapTile {
+  # id
+  + name
+  + tile_type
+  + resource
+  + enterN
+  + enterS
+  + enterE
+  + enterW
+  + exitN
+  + exitS
+  + exitE
+  + exitW
 }
 
-World::x_location --> Player::x_location : FK
-World::y_location --> Player::y_location : FK
+class MapCoord {
+  # xcoord
+  # ycoord
+  # zcoord
+  - tile_id
+}
+
+class SpawnSpots {
+  # id
+  - xcoord
+  - ycoord
+  - zcoord
+  - spawner_id
+}
+
+class Spawner {
+  # id
+  + name
+  + timing
+}
+
+class Resource {
+  # id
+  + name
+  + resource_type
+  + required_level
+  + required_tool
+}
+
+class Spawnee {
+  # id
+  - spawner_id
+  - resource_id
+}
+
+MapTile::id --> MapCoord::tile_id
+MapCoord::xcoord -> User::xcoord
+MapCoord::ycoord -> User::ycoord
+MapCoord::zcoord -> User::zcoord
+
+MapCoord::xcoord -> SpawnSpots::xcoord
+MapCoord::ycoord -> SpawnSpots::ycoord
+MapCoord::zcoord -> SpawnSpots::zcoord
+
+Spawner::id -> SpawnSpots::spawner_id
+Spawner::id -> Spawnee::spawner_id
+
+Resource::id -> Spawnee::spawner_id
 
 @enduml
