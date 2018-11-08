@@ -12,7 +12,11 @@ GR: API Server
 
 ----
 
-TBD
+API Design:
+
+.. image:: ./api_design.png
+    :target: ./api_design.puml
+
 
 ----
 

@@ -1,0 +1,64 @@
+@startuml
+
+title API Endpoint Design
+
+group index
+
+    Client -> Server: GET::index
+    Server --> Client: landing.html
+    note over Server: User not logged in.
+
+    Client -> Server: POST::index (invalid username)
+    Server --> Client: landing.html
+    note over Server: User still not logged in. Show failed login error
+
+    Client -> Server: POST::index (valid username)
+    Server --> Client: client.html
+    note over Server
+        Combination of browser cookies and API requests will load
+        the client with the user's details.
+    end note
+
+group version
+
+    Client -> Server: GET::api/version
+    Server --> Client: {'version': '0.1'}
+
+group randomImage
+
+    Client -> Server: GET::api/randomImage
+    Server --> Client: {'image': '_assets/RANDOMPATH'}
+    note over Server
+        RANDOMPATH is a path to a randomly chosen image in the "_assets"
+        directory.
+    end note
+
+group randomActionImage
+
+    Client -> Server: GET::api/randomActionImage
+    Server --> Client: {'image': '_assets/action/RANDOMPATH'}
+    note over Server
+        RANDOMPATH is a path to a randomly chosen image in the "_assets/action"
+        directory.
+    end note
+
+group randomInventoryImage
+
+    Client -> Server: GET::api/randomInventoryImage
+    Server --> Client: {'image': '_assets/multi/inventory/RANDOMPATH'}
+    note over Server
+        RANDOMPATH is a path to a randomly chosen image in the
+        "_assets/multi/inventory" directory.
+    end note
+
+group logout
+
+    Client -> Server: GET::logout
+    Server --> Client: landing.html
+
+group sysmsg
+
+    Client -> Server: GET::sysmsg
+    Server --> Client: return EventStream socket
+
+@enduml
