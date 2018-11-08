@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block head %}
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+  <title>Grid Realm</title>
+  <meta name="date" content="2018-12-22 09:30" />
+  <meta name="author" content="Curtis Sand, Dennison Gaetz" />
+  <link rel="stylesheet" href={{ url_for('static', filename="client/css/gridrealm.css") }}>
+  {% endblock head %}
+</head>
+<body>
+  <!-- wrap body in container -->
+  <div class="container-fluid no-gutters" id="body">
+  {% block body %}
+    <div class="row mx-auto no-gutters" id="content">
+      {% block content %}
+      {% endblock content %}
+    </div>
+
+    {% block debug %}
+    {% endblock debug %}
+
+    <div class="row mx-auto navbar fixed-bottom" id="navbar"> <!-- Navigation Bar -->
+      {% block navbar %}
+      <div class="col-sm-8">
+        <a class="reference external"
+           href="{{ url_for('docs') }}">Documentation</a>
+        {% block navbar_left %}{% endblock navbar_left %}
+        <div class="float-right">
+        {% block navbar_center %}{% endblock navbar_center %}
+        </div>
+      </div>
+      <div class="col-sm-4 float-right">
+        {% block navbar_right %}{% endblock navbar_right %}
+      </div>
+      {% endblock navbar %}
+    </div>
+  {% endblock body %}
+  </div>
+</body>
+{% block scripts %}
+<script type="text/javascript" src={{ url_for('static', filename='client/js/jquery.min.js') }} ></script>
+<script type="type/javascript" src={{ url_for('static', filename='client/js/bootstrap.min.js') }} ></script>
+<script type="text/javascript" src={{ url_for('static', filename='client/js/gridrealm.js') }} ></script>
+{% endblock scripts %}
+</html>
