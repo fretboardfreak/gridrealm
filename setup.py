@@ -125,8 +125,7 @@ class PycodestyleCommand(DevelopmentCommand):
 
     def run(self):
         """Run the pycodestyle checker."""
-        self._run_command(['pycodestyle', '--statistics', '--verbose'] +
-                          self.test_paths)
+        self._run_command(['pycodestyle', '--statistics'] + self.test_paths)
 
 
 class Pep257Command(DevelopmentCommand):
@@ -137,8 +136,7 @@ class Pep257Command(DevelopmentCommand):
 
     def run(self):
         """Run the pep257 checker."""
-        self._run_command(['pep257', '--count', '--verbose'] +
-                          self.test_paths)
+        self._run_command(['pep257', '--count'] + self.test_paths)
 
 
 class UnitTestCommand(DevelopmentCommand):
