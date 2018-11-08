@@ -1,47 +1,21 @@
-<!DOCTYPE html>
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-  <title>Grid Realm</title>
-  <meta name="date" content="2018-12-22 09:30" />
-  <meta name="author" content="Curtis Sand, Dennison Gaetz" />
-  <link rel="stylesheet" href={{ url_for('static', filename="client/css/gridrealm.css") }}>
-</head>
-<body>
-  <div class="container-fluid">
-    <div class="row mx-auto"> <!-- Navigation Bar -->
-      <div class="col-sm-2">
-        <a class="reference external" href="docs">Documentation</a>
-      </div>
-    </div>
-
-    <div class="row" id="nologin"> <!-- No login -->
-      <table class="float-right" frame="void" rules="none">
-        <col/>
-        <col/>
-        <tbody valign="top">
-          <tr><th>Date:</th><td>2018-10-22 09:30</td></tr>
-          <tr><th>Author:</th><td>Curtis Sand, Dennison Gaetz</td></tr>
-        </tbody>
-      </table>
-      <br>
-      <hr>
-      <div id="gridrealm-login" class="mx-auto">
-        <h1 class="title">Grid Realm</h1><br>
-        <!-- <div id="login-link" onclick="toggle_login_state()">Login</div><br> -->
-        <form method="post">
-            <p><input type="text" name="username">
-            <p><input type="submit" value="Login">
-        </form>
-        <div id="create-account-link"
-             onclick="create_account()">Create Account</div>
-      </div>
-    </div>
-
-  </div>
-</body>
-<script type="text/javascript" src={{ url_for('static', filename='client/js/jquery.min.js') }} ></script>
-<script type="type/javascript" src={{ url_for('static', filename='client/js/bootstrap.min.js') }} ></script>
-<script type="text/javascript" src={{ url_for('static', filename='client/js/gridrealm.js') }} ></script>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<div id="gridrealm-login" class="mx-auto">
+  <h1 class="text-dark">&nbsp;</h1>
+  <h1 class="text-dark">&nbsp;</h1>
+  <h1 class="title">Gridrealm</h1>
+  <h1 class="text-dark">&nbsp;</h1>
+  <div></div>
+  <form method="post">
+      <p><input type="text" name="username"></p>
+      <!-- <p><input type="submit" value="Login"></p> -->
+      <p><button type="submit" class="btn bnt-outline-light">Login</button></p>
+  </form>
+  <h1 class="text-dark">&nbsp;</h1>
+  <div id="create-account-link"
+       onclick="create_account()">Create Account</div>
+</div>
+{% endblock content %}
+{% block navbar_center %}
+&copy; Copyright 2018 - Curtis Sand, Dennison Gaetz - All Rights Reserved.
+{% endblock navbar_center %}
