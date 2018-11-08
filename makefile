@@ -17,15 +17,18 @@ help :
 	@echo "  help : Print this message"
 	@echo "  run : Run a development instance of gridrealm."
 	@echo "  initdb : Initialize the development database."
+	@echo "  removedb : Remove the development database."
 	@echo ""
 	@echo "Component Build Targets:"
 	@echo "  all : Build and compile all project components."
+	@echo "  rebuild : Clean, Build and compile all project components."
 	@echo "  engine : Build the API Engine component."
 	@echo "  client : Build the Client component."
 	@echo "  pytests : Build the Python Tests."
 	@echo "  assets : Put copy of the asset dir in dist."
 	@echo "  scripts: Put copy of each script in dist."
 	@echo "  dev-loop: Execute 'clean-dist', 'all' and 'run' targets in order.."
+	@echo "  ipy: Run ipython for manual debugging."
 	@echo ""
 	@echo "Clean Targets:"
 	@echo "  clean : Clean all built files."
@@ -58,6 +61,7 @@ help :
 	@echo "  pylint : execute the python pylint tool."
 	@echo "  pep257 : execute the python pep257 tool."
 	@echo "  pycodestyle : execute the python pycodestyle tool."
+	@echo "  pystyle : execute all three python style tools."
 	@echo "  pybuild : Build the python packages into build dir."
 	@echo ""
 	@echo "Javascript Targets:"
@@ -76,6 +80,10 @@ help :
 .PHONY: all
 all: client engine pytests doc assets scripts
 	@echo "all target"
+
+.PHONY: rebuild
+rebuild: clean-dist all
+	@echo "rebuild target"
 
 .PHONY: engine
 engine: pybuild
@@ -104,19 +112,30 @@ scripts: dist
 .PHONY: run
 run :
 	pushd dist/ ;\
-	sudo ../pyvenv/bin/python runGR.py -c ../dev.cfg --public --port 80 --debug;\
+	sudo ../pyvenv/bin/python gr.py -c ../dev.cfg --public --port 80 --debug;\
 	popd
 
 .PHONY: initdb
 initdb :
 	pushd dist/ ;\
-	../pyvenv/bin/python runGR.py -c ../dev.cfg --initdb --debug;\
+	../pyvenv/bin/python gr.py -c ../dev.cfg --initdb --debug;\
+	popd
+
+.PHONE: removedb
+removedb :
+	pushd dist/ ;\
+	../pyvenv/bin/python gr.py -c ../dev.cfg --removedb --debug;\
 	popd
 
 .PHONY: dev-loop
 dev-loop: clean-dist all run
 	@echo "all target"
 
+.PHONY: ipy
+ipy: dist pyvenv
+	pushd dist/ ;\
+	../pyvenv/bin/ipython ;\
+	popd
 
 # clean targets
 
@@ -227,6 +246,10 @@ pycodestyle :
 	source $(PYVENV)/bin/activate;\
 	$(PYTHON) setup.py pycodestyle;\
 	deactivate
+
+.PHONY: pystyle
+pystyle : pycodestyle pep257 pylint
+	@echo "pystyle target"
 
 .PHONY: pybuild
 pybuild :
