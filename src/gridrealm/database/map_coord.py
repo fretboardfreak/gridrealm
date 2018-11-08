@@ -15,11 +15,13 @@ class MapCoord(Base):
     # pylint: disable=invalid-name
     __tablename__ = 'map_coords'
 
-    xcoord = Column(Integer, primary_key=True)
-    ycoord = Column(Integer, primary_key=True)
-    zcoord = Column(Integer, primary_key=True)
+    xcoord = Column(Integer, primary_key=True, nullable=False)
+    ycoord = Column(Integer, primary_key=True, nullable=False)
+    zcoord = Column(Integer, primary_key=True, nullable=False)
     tile_id = Column(Integer, ForeignKey('map_tiles.id'), nullable=False)
+
     tile = relationship('MapTile', back_populates='coords')
+    users = relationship('User', backref='coord')
 
     def __init__(self, xcoord, ycoord, zcoord, tile_id):
         """Create an instance of the MapTile database model."""
