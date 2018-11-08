@@ -57,12 +57,9 @@ export function create_account() {
 
 export function init_panels() {
   if (is_logged_in()) {
-    console.log("enabling loggedin content");
-    $("#loggedin").show();
     resize_panels();
   }
   else { /* not logged in */
-    console.log("initializing nologin content");
-    $("#nologin").show();
+    console.log("Not Logged In. Doing nothing.");
   }
 }
