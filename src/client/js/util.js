@@ -17,6 +17,10 @@ export function build_image_tag(source, height) {
 }
 
 export function get_cookie(a) {
-    var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
-    return b ? b.pop() : '';
+  var b = document.cookie.match('(^|;)\\s*' + a + '\\s*=\\s*([^;]+)');
+  return b ? b.pop() : '';
+}
+
+export function bootstrap_enabled () {
+  return (typeof $().emulateTransitionEnd == 'function');
 }
