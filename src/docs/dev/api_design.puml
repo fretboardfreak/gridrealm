@@ -38,7 +38,8 @@ group randomActionImage
     Client -> Server: GET::api/randomActionImage
     Server --> Client: {'image': '_assets/action/RANDOMPATH'}
     note over Server
-        RANDOMPATH is a path to a randomly chosen image in the "_assets/action"
+        RANDOMPATH is a path to a randomly
+        chosen image in the "_assets/action"
         directory.
     end note
 
@@ -47,7 +48,8 @@ group randomInventoryImage
     Client -> Server: GET::api/randomInventoryImage
     Server --> Client: {'image': '_assets/multi/inventory/RANDOMPATH'}
     note over Server
-        RANDOMPATH is a path to a randomly chosen image in the
+        RANDOMPATH is a path to a
+        randomly chosen image in the
         "_assets/multi/inventory" directory.
     end note
 
@@ -60,5 +62,37 @@ group sysmsg
 
     Client -> Server: GET::sysmsg
     Server --> Client: return EventStream socket
+
+group location
+
+    Client -> Server: POST::api/location  (invalid login)
+    Server --> Client: landing.html
+    note over Server
+        This is the standard response to any
+        invalid login requests to the api.
+    end note
+
+    Client -> Server: POST::api/location  (valid login)
+    Server --> Client: return LocationResponse
+    note over Server
+        Map zoom level is sent as part of POST request, here assume 3x3.
+        Also, "tile_-1,+1" represents a path to the tile image for the
+        location x-1, y+1 where x and y are the current
+        location of the user.
+        Finally, the map icons list describes the overlay
+        icons to show overtop of the associated map tile.
+
+        .LocationResponse = {
+        .  'action': {'asset': 'path/to/image',
+        .             'title': 'name of thing',
+        .             'notes': 'recommended level and or tool'},
+        .  'map': [['tile_-1,+1', 'tile_0,+1', 'tile_1,+1'],
+        .          ['tile_-1,0', 'tile_0,0', 'tile_1,0'],
+        .          ['tile_-1,-1', 'tile_0,-1', 'tile_1,-1']],
+        .  'map_icons': [[None, None, 'person'],
+        .                [None, None, None],
+        .                [None, None, None]]
+        .}
+    end note
 
 @enduml
