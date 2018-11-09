@@ -19,31 +19,28 @@
       {% block content %}
       {% endblock content %}
     </div>
-
-    {% block debug %}
-    {% endblock debug %}
-
-    <div class="row mx-auto navbar fixed-bottom" id="navbar"> <!-- Navigation Bar -->
-      {% block navbar %}
-      <div class="col-sm-8">
-        <a class="reference external"
-           href="{{ url_for('docs') }}">Documentation</a>
-        {% block navbar_left %}{% endblock navbar_left %}
-        <div class="float-right">
-        {% block navbar_center %}{% endblock navbar_center %}
-        </div>
-      </div>
-      <div class="col-sm-4 float-right">
-        {% block navbar_right %}{% endblock navbar_right %}
-      </div>
-      {% endblock navbar %}
-    </div>
   {% endblock body %}
   </div>
-</body>
+  <div class="row mx-auto navbar fixed-bottom" id="navbar"> <!-- Navigation Bar -->
+    {% block navbar %}
+    <div class="col-sm-8">
+      <button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('docs') }}';">Documentation</button>
+      {% block navbar_left %}{% endblock navbar_left %}
+      <div class="float-right">
+      {% block navbar_center %}{% endblock navbar_center %}
+      </div>
+    </div>
+    <div class="col-sm-4 float-right">
+      {% block navbar_right %}{% endblock navbar_right %}
+    </div>
+    {% endblock navbar %}
+  </div>
+  {% block modals %}{% endblock modals %}
 {% block scripts %}
-<script type="text/javascript" src={{ url_for('static', filename='client/js/jquery.min.js') }} ></script>
-<script type="type/javascript" src={{ url_for('static', filename='client/js/bootstrap.min.js') }} ></script>
-<script type="text/javascript" src={{ url_for('static', filename='client/js/gridrealm.js') }} ></script>
+<script type="text/javascript" src="{{ url_for('static', filename='client/js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='client/js/bootstrap.min.js') }}"></script>
+<script>if (typeof $().emulateTransitionEnd != 'function') {console.log("bootstrap failed to load. ");}</script>
+<script type="text/javascript" src="{{ url_for('static', filename='client/js/gridrealm.js') }}"></script>
 {% endblock scripts %}
+</body>
 </html>
