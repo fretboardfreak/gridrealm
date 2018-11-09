@@ -13,7 +13,6 @@ import { get_cookie } from "./util.js";
 
 /* On DOM Ready*/
 $(document).ready(function(){
-  console.log("initializing page.");
   if (auth.is_logged_in()) {
     console.log("Logged in as: " + get_cookie('username'));
     $("body").removeClass("tiled_bg")
