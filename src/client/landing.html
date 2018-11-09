@@ -1,19 +1,18 @@
 {% extends "base.html" %}
 {% block content %}
 <div id="gridrealm-login" class="mx-auto">
-  <h1 class="text-dark">&nbsp;</h1>
-  <h1 class="text-dark">&nbsp;</h1>
-  <h1 class="title">Gridrealm</h1>
-  <h1 class="text-dark">&nbsp;</h1>
+  <h1 class="mx-auto text-dark">&nbsp;</h1>
+  <h1 class="mx-auto text-dark">&nbsp;</h1>
+  <h1 class="title mx-auto">Gridrealm</h1>
+  <h1 class="text-dark mx-auto">&nbsp;</h1>
   <div></div>
   <form method="post">
-      <p><input type="text" name="username"></p>
+      <p><input class="mx-auto" type="text" name="username"></p>
       <!-- <p><input type="submit" value="Login"></p> -->
-      <p><button type="submit" class="btn bnt-outline-light">Login</button></p>
+      <p><button type="submit" class="btn bnt-primary btn-block mx-auto">Login</button></p>
   </form>
-  <h1 class="text-dark">&nbsp;</h1>
-  <div id="create-account-link"
-       onclick="create_account()">Create Account</div>
+  <h1 class="text-dark mx-auto">&nbsp;</h1>
+  <button type="submit" class="btn bnt-secondary btn-block mx-auto" onclick="create_account()">Create Account</button>
 </div>
 {% endblock content %}
 {% block navbar_center %}
