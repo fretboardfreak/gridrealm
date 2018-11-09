@@ -119,6 +119,16 @@ class Config(metaclass=Singleton):
                 options[option] = str(tmp)
         return options
 
+    def update_option(self, section, option, value):
+        """Update config object to return a new value for the given option."""
+        if section not in [sect.name for sect in Section]:
+            raise NameError('The requested Config Section could not be '
+                            'found: %s' % section)
+        # print('Section %s, option %s, value %s' % (section, option, value))
+        obj = getattr(self, section)
+        obj[option] = value
+        setattr(self, "_%s_cache" % section, obj)
+
     @property
     def assets(self):
         """Get the 'assets' section as an AttrDict."""
@@ -163,12 +173,14 @@ class AssetsDefaults(Enum):
     favicon_uri = os.path.join(asset_path, "favicon.ico")
     client_uri = "client.html"
     landing_uri = "landing.html"
+    debug_client_uri = "debug_client.html"
 
 
 class GridrealmDefaults(Enum):
     """Default values for Gridrealm."""
 
     database_url = "sqlite:////tmp/gridrealm.db"
+    debug = False
 
 
 class Section(Enum):

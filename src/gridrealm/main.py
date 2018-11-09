@@ -76,7 +76,11 @@ def load_flask(args):
 
 def load_config(args):
     """Load the configuration file."""
-    return Config(args.config)
+    config = Config(args.config)
+    # set Config().gridrealm.debug to True if passed in at cmd line.
+    if config.gridrealm.debug != args.debug:
+        config.update_option('gridrealm', 'debug', args.debug)
+    return
 
 
 def prep_db(args):
