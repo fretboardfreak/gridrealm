@@ -31,9 +31,5 @@
 {% endblock content %}
 
 {% block navbar_right %}
-<a href="{{ url_for('logout') }}" id="logout-lnk"></a>
+<button type="button" class="btn btn-primary" onclick="location.href='{{ url_for('logout') }}';" id="logout-lnk"></button>
 {% endblock navbar_right %}
-
-{% block debug %}
-<div id="size-record"></div>
-{% endblock debug %}
