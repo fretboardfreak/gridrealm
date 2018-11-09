@@ -16,6 +16,7 @@ help :
 	@echo "Gridrealm Makefile Targets:"
 	@echo "  help : Print this message"
 	@echo "  run : Run a development instance of gridrealm."
+	@echo "  drun : Run a development instance of gridrealm with debug enabled."
 	@echo "  initdb : Initialize the development database."
 	@echo "  removedb : Remove the development database."
 	@echo ""
@@ -112,6 +113,12 @@ scripts: dist
 .PHONY: run
 run :
 	pushd dist/ ;\
+	sudo ../pyvenv/bin/python gr.py -c ../dev.cfg --public --port 80;\
+	popd
+
+.PHONY: drun
+drun :
+	pushd dist/ ;\
 	sudo ../pyvenv/bin/python gr.py -c ../dev.cfg --public --port 80 --debug;\
 	popd
 
@@ -128,7 +135,7 @@ removedb :
 	popd
 
 .PHONY: dev-loop
-dev-loop: clean-dist all run
+dev-loop: clean-dist all drun
 	@echo "all target"
 
 .PHONY: ipy
