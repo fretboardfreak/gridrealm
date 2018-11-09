@@ -18,10 +18,15 @@ def index():
     """Static route for gridrealm client."""
     # pylint cannot find the logger object on the GR.APP
     # pylint: disable=no-member
-    if request.method == 'POST':
+    if request.method == 'POST' and request.form['username'] != "":
         session['username'] = request.form['username']
         # TODO: do something to make sure user is logged in
     if 'username' in session:
+        template = Config().assets.client_uri
+        if Config().gridrealm.debug:
+            template = Config().assets.debug_client_uri
+        response = GR.APP.make_response(
+            render_template(template))
         uname = session['username']
         # see if username is in database
         user = User.query.filter(User.name == uname).first()
@@ -36,14 +41,14 @@ def index():
                 user.name, ts_to_str(user.last_logout))
             GR.SYS_MSG.publish(msg)
             GR.APP.logger.debug(msg)
+        old_last_login = user.last_login
+        user.last_login = time()
         # add new user or update existing user in the database
         GR.DBS.add(user)
         GR.DBS.commit()
 
-        response = GR.APP.make_response(
-            render_template(Config().assets.client_uri))
         response.set_cookie('username', uname)
-        response.set_cookie('last_login', ts_to_str(user.last_login))
+        response.set_cookie('last_login', ts_to_str(old_last_login))
         response.set_cookie('xcoord', str(user.xcoord))
         response.set_cookie('ycoord', str(user.ycoord))
         response.set_cookie('zcoord', str(user.zcoord))
@@ -51,6 +56,11 @@ def index():
         GR.APP.logger.debug('New user at landing page.')
         response = GR.APP.make_response(
             render_template(Config().assets.landing_uri))
+        response.set_cookie('username', '', expires=0)
+        response.set_cookie('last_login', '', expires=0)
+        response.set_cookie('xcoord', '', expires=0)
+        response.set_cookie('ycoord', '', expires=0)
+        response.set_cookie('zcoord', '', expires=0)
     return response
 
 
@@ -61,8 +71,13 @@ def logout():
     # remove the username from the session if it's there
     username = session.pop('username', None)
     response = GR.APP.make_response(redirect(url_for('index')))
-    # invalidate the username cookie
-    response.set_cookie('username', '')
+    # invalidate the session cookies
+    response.set_cookie('username', '', expires=0)
+    response.set_cookie('last_login', '', expires=0)
+    response.set_cookie('xcoord', '', expires=0)
+    response.set_cookie('ycoord', '', expires=0)
+    response.set_cookie('zcoord', '', expires=0)
+
     if username not in ['', None]:
         user = User.query.filter(User.name == username).first()
         msg = "User %s has logged out" % username
@@ -70,7 +85,7 @@ def logout():
             now = time()
             play_time = int(now - user.last_login)
             msg += " after %s seconds" % play_time
-            user.last_login = now
+            user.last_logout = now
             GR.DBS.add(user)
             GR.DBS.commit()
         GR.SYS_MSG.publish(msg)
