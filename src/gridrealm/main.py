@@ -17,7 +17,8 @@ from flask_restful import Api
 import gevent.monkey
 
 import gridrealm
-from gridrealm.static_routes import register_static_views
+from gridrealm.routes import register_views
+from gridrealm.routes import Views
 from gridrealm.api import random_image
 from gridrealm.api import version
 from gridrealm.api import location
@@ -112,7 +113,7 @@ def prep_db(args):
 
 def register_flask_views():
     """Register the views and API resources on the flask app."""
-    register_static_views(gridrealm.APP)
+    register_views(gridrealm.APP, Views)
     # Register the REST API Resources
     random_image.Resources.add_resources(gridrealm.API)
     version.Resources.add_resources(gridrealm.API)
