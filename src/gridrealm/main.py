@@ -20,6 +20,7 @@ import gridrealm
 from gridrealm.static_routes import register_static_views
 from gridrealm.api import random_image
 from gridrealm.api import version
+from gridrealm.api import location
 from gridrealm.config import Config
 from gridrealm.config import guess_a_config_location
 from gridrealm.server_events import Channel
@@ -115,6 +116,7 @@ def register_flask_views():
     # Register the REST API Resources
     random_image.Resources.add_resources(gridrealm.API)
     version.Resources.add_resources(gridrealm.API)
+    location.Resources.add_resources(gridrealm.API)
 
 
 def run_flask_server(args):
