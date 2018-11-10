@@ -1,10 +1,9 @@
-"""Random Image URI Library."""
+"""Gridrealm API Version Endpoint."""
 
-from enum import Enum
 from flask_restful import Resource
 
-
-API_VERSION = "0.1"
+from gridrealm.api.core import ResourceEnum
+from gridrealm.api.core import API_VERSION
 
 
 class Version(Resource):
@@ -17,15 +16,7 @@ class Version(Resource):
         return {'version': API_VERSION}
 
 
-class Resources(Enum):
+class Resources(ResourceEnum):
     """Enum of all resources in this module."""
 
     version = Version
-
-    @classmethod
-    def add_resources(cls, api, resource_classes=None):
-        """Register the given resources on the api object."""
-        if not resource_classes:
-            resource_classes = [res.value for res in cls]
-        for res_cls in resource_classes:
-            api.add_resource(res_cls, res_cls.uri)
