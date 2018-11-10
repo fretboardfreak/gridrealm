@@ -1,0 +1,530 @@
+{
+	"info": {
+		"_postman_id": "7765e973-ad07-42c9-b3df-df889f2ac82c",
+		"name": "gridrealm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "index no-login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "01e81346-cb5b-4138-9bc5-4b63b3b1da91",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Login\");",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost",
+					"host": [
+						"localhost"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "version",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7a4caf6f-c84f-458c-a04f-43b764cd7967",
+						"exec": [
+							"pm.test(\"Version String\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.version).to.be.a('string');",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost/api/version",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"version"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "docs",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c8eb51e-8b5a-4893-9914-31c85581b57e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost/docs",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"docs"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "docs subpath",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c8eb51e-8b5a-4893-9914-31c85581b57e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost/docs/dev/index.html",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"docs",
+						"dev",
+						"index.html"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "_assets",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b97c6b86-f929-435a-8b13-e523c592186e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost/_assets/lpbg.svg",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"_assets",
+						"lpbg.svg"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "favicon",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7c8eb51e-8b5a-4893-9914-31c85581b57e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost/favicon.ico",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"favicon.ico"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "randomImage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90136a5d-44d6-4d4d-a432-d71150fa1e31",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"image uri\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.image).to.be.a('string').that.includes('_assets/');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost/api/randomImage",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"randomImage"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "randomActionImage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90136a5d-44d6-4d4d-a432-d71150fa1e31",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"action image uri\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.image).to.be.a('string').that.includes(\"_assets/action/\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost/api/randomActionImage",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"randomActionImage"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "randomInventoryImage",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "90136a5d-44d6-4d4d-a432-d71150fa1e31",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"inventory image uri\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.image).to.be.a('string').that.includes(\"_assets/multi/inventoryIcons/\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost/api/randomInventoryImage",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"randomInventoryImage"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "location no-login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7bf8f6e1-32d8-4849-8ebb-57c3646af19e",
+						"exec": [
+							"pm.test(\"Status code is 401 - unauthorized\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/api/location",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"location"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ec93548-8269-4c09-912a-38b34fa730d4",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"action-panel\");",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost",
+					"host": [
+						"localhost"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "location",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7bf8f6e1-32d8-4849-8ebb-57c3646af19e",
+						"exec": [
+							"pm.test(\"Location response is JSON object.\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.minimap).to.be.an('array');",
+							"    pm.expect(jsonData.movement).to.be.an('object');",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/api/location",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"location"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "194742d4-61df-494b-b04e-87b1eb3ac9fe",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Login\");",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost/logout",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"logout"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		}
+	]
+}
