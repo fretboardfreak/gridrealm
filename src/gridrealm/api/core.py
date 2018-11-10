@@ -1,4 +1,4 @@
-"""Random Image URI Library."""
+"""Gridrealm API core library."""
 
 from enum import Enum
 
