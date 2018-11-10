@@ -1,9 +1,10 @@
 """Location API Endpoint."""
 
-from flask import session
+from flask import g as flask_g
 from flask_restful import Resource
 
 import gridrealm.database as DB
+from gridrealm.auth import user_required
 from gridrealm.api.core import ResourceEnum
 
 
@@ -12,27 +13,14 @@ class Location(Resource):
 
     uri = '/api/location'
 
-    def post(self):
+    def get(self):
         """API endpoint to return the version of the in use API schema."""
-        # TODO: do something to make sure user is logged in
-        if 'username' not in session:
-            print('LOC: username not in session')
-            # return {'error', 'User is not logged in'}
-            return {}, 401
-        uname = session['username']
-        print('LOC: username in session: %s' % uname)
-        # see if username is in database
-        user = DB.User.query.filter(DB.User.name == uname).first()
-        if user is None:
-            print('LOC: user not in database')
-            # return {'error', 'User is not logged in'}, 404
-            return {}, 401
-        print('LOC: user in database')
         response = {}
         index_map = [[(-1, 1), (0, 1), (1, 1)],
                      [(-1, 0), (0, 0), (1, 0)],
                      [(-1, -1), (0, -1), (1, -1)]]
         map_assets = []
+        user = flask_g.user
         for i, row in enumerate(index_map):
             map_assets.append([])
             for col in row:
@@ -61,6 +49,8 @@ class Location(Resource):
                                 'south': loc.tile.exitS and sloc.tile.enterN,
                                 'west': loc.tile.exitW and wloc.tile.enterE}
         return response
+
+    get = user_required(get)
 
 
 class Resources(ResourceEnum):
