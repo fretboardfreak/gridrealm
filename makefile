@@ -150,6 +150,11 @@ lot :
 				-e 's/gridrealm.postman_collection.json//g' \
 				-e 's/package.*json//g' | xargs wc -l
 
+.PHONY: cloc
+cloc :
+	cloc bin makefile setup.py src
+
+
 # clean targets
 
 .PHONY: clean-build
