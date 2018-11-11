@@ -78,37 +78,36 @@ help :
 
 # Component build targets
 
-.PHONY: all
 all: client engine pytests doc assets scripts
-	@echo "all target"
+	date > all
 
 .PHONY: rebuild
-rebuild: clean-dist all
+rebuild: clean all
 	@echo "rebuild target"
 
-.PHONY: engine
 engine: pybuild
 	cp -r $(BUILD_DIR)/lib/gridrealm $(DIST_DIR)/
+	date > engine
 
-.PHONY: pytests
 pytests: engine
 	cp -r $(BUILD_DIR)/lib/tests $(DIST_DIR)/
+	date > pytests
 
-.PHONY: client
-client : build dist engine static client-dir css js
-	mkdir -p dist/gridrealm/templates
+client : dist engine static client-dir css js
+	mkdir -p dist/gridrealm/templates dist/gridrealm/static/client
 	cp src/client/*.html dist/gridrealm/templates/
 	cp node_modules/bootstrap/dist/js/bootstrap.min.js \
 		dist/gridrealm/static/client/js/
 	cp node_modules/jquery/dist/jquery.min.js dist/gridrealm/static/client/js/
+	date > client
 
-.PHONY: assets
 assets: dist static
 	cp -r _assets dist/gridrealm/static/
+	date > assets
 
-.PHONY: scripts
 scripts: dist
-	cp -r scripts/* $(DIST_DIR)
+	cp -r src/scripts/* $(DIST_DIR)
+	date > scripts
 
 .PHONY: run
 run :
@@ -135,7 +134,7 @@ removedb :
 	popd
 
 .PHONY: dev-loop
-dev-loop: clean-dist all drun
+dev-loop: all drun
 	@echo "all target"
 
 .PHONY: ipy
@@ -148,26 +147,64 @@ ipy: dist pyvenv
 
 .PHONY: clean-build
 clean-build :
-	rm -rf $(BUILD_DIR)
+	rm -rf $(BUILD_DIR) pybuild pytests engine docbuild doc-uml doc-html \
+		css-compile css-prefix css doc all docbuild
 
 .PHONY: clean-dist
 clean-dist :
-	sudo rm -rf $(DIST_DIR)
+	sudo rm -rf $(DIST_DIR) engine pytests scripts client assets css-prefix \
+		doc css static client-dir all js
+
+.PHONY: clean-client
+clean-client :
+	rm -rf $(DIST_DIR)/gridrealm/templates $(DIST_DIR)/gridrelam/static/client \
+		client all client-dir js css css-prefix css-compile
+
+.PHONY: clean-engine
+clean-engine : clean-pyc
+	rm -rf $(DIST_DIR)/gridrealm client assets css-prefix doc css static \
+		client-dir all engine js
+
+.PHONY: clean-pyc
+clean-pyc :
+	sudo find dist -name "__pycache__" -exec rm -rf '{}' '+'
+	sudo find dist -name "*.pyc" -or -name "*.pyo" -exec rm -rf '{}' '+'
+
+.PHONY: clean-pytests
+clean-pytests:
+	rm -rf $(DIST_DIR)/tests pytests
+
+.PHONY: clean-doc
+clean-doc:
+	rm -rf $(DIST_DIR)/gridrealm/static/docs $(BUILD_DIR)/docs \
+		doc all doc-html doc-uml docbuild
+
+.PHONY: clean-docs
+clean-docs: clean-doc
+	@echo ""
+
+.PHONY: clean-assets
+clean-assets:
+	rm -rf $(DIST_DIR)/gridrealm/static/_assets assets
+
+.PHONY: clean-scripts
+clean-scripts:
+	rm -rf $(DIST_DIR)/*.py scripts  # TODO: be smarter than wildcard rm here
 
 .PHONY: clean-pyvenv
 clean-pyvenv :
-	rm -rf $(PYVENV)
+	rm -rf $(PYVENV) install-py install-dev
 
-.PHONY: clean-node
-clean-node :
-	rm -rf node_modules
+.PHONY: clean-npm
+clean-npm :
+	rm -rf node_modules install-npm install-dev
 
 .PHONY: clean
 clean : clean-build clean-dist
 	@echo "clean target"
 
 .PHONY: clean-all
-clean-all : clean clean-pyvenv clean-node
+clean-all : clean clean-pyvenv clean-npm
 	rm -rf src/gridrealm.egg-info
 	@echo "clean-all target"
 
@@ -180,14 +217,14 @@ build :
 dist :
 	mkdir $(DIST_DIR)
 
-.PHONY: static
 static : engine
 	mkdir -p $(DIST_DIR)/gridrealm/static
+	date > static
 
-.PHONY: client-dir
 client-dir : static
 	mkdir -p $(DIST_DIR)/gridrealm/static/client/js
 	mkdir -p $(DIST_DIR)/gridrealm/static/client/css
+	date > client-dir
 
 
 # install targets
@@ -196,39 +233,37 @@ client-dir : static
 install : install-dev
 	$(PYVENV)/bin/python setup.py install
 
-.PHONY: install-dev
 install-dev : install-npm install-py
-	@echo "install-dev target"
+	date > install-dev
 
-.PHONY: install-py
 install-py : pyvenv
 	$(PYVENV)/bin/pip install -U pip
 	$(PYVENV)/bin/pip install -r dev_requirements.txt -r requirements.txt
+	date > install-py
 
-.PHONY: install-npm
 install-npm :
 	npm install
+	date > install-npm
 
 
 # css targets
 
 .PHONY: css-lint
 css-lint :
-	@echo "css-lint target"
+	@echo "css-lint target: Not Implemented"
 
-.PHONY: css-compile
 css-compile :
 	npx node-sass --include-path node_modules/bootstrap/scss/ \
 		src/client/css/gridrealm.scss -o build/client/css/
+	date > css-compile
 
-.PHONY: css-prefix
 css-prefix :
 	npx postcss --use autoprefixer --dir dist/gridrealm/static/client/css/ \
 		build/client/css/
+	date > css-prefix
 
-.PHONY: css
 css : css-compile css-prefix
-	@echo "css target"
+	date > css
 
 
 # python targets
@@ -258,41 +293,41 @@ pycodestyle :
 pystyle : pycodestyle pep257 pylint
 	@echo "pystyle target"
 
-.PHONY: pybuild
 pybuild :
 	source $(PYVENV)/bin/activate;\
 	$(PYTHON) setup.py build;\
 	deactivate
+	date > pybuild
 
 
 # js targets
 
-.PHONY: js
 js :
 	npx rollup -c --no-interop --no-treeshake
+	date > js
 
 
 # Documentation Targets
 
-.PHONY: docbuild
 docbuild : build
 	cp -r src/docs $(BUILD_DIR)
+	date > docbuild
 
-.PHONY: doc-uml
 doc-uml : docbuild
 	source $(PYVENV)/bin/activate;\
 	find $(BUILD_DIR)/docs -iname "*.puml" \
 		-exec ./bin/puml.py --verbose '{}' ';' ;\
 	deactivate
+	date > doc-uml
 
-.PHONY: doc-html
 doc-html : docbuild
 	./bin/buildDocs.sh
+	date > doc-html
 
-.PHONY: doc
 doc : doc-uml doc-html dist
 	mkdir -p $(DIST_DIR)/gridrealm/static/docs ;\
 		cp -r $(BUILD_DIR)/docs/* $(DIST_DIR)/gridrealm/static/docs/
+	date > doc
 
 .PHONY: docs
 docs : doc
