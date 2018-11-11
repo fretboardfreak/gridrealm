@@ -369,8 +369,11 @@
 					}
 				}
 			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "formdata",
@@ -406,6 +409,9 @@
 						"exec": [
 							"pm.test(\"Body matches string\", function () {",
 							"    pm.expect(pm.response.text()).to.include(\"action-panel\");",
+							"});",
+							"pm.test(\"Cookies added.\", function () {",
+							"    pm.expect(pm.cookies.has('username'));",
 							"});",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
@@ -460,8 +466,11 @@
 					}
 				}
 			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "formdata",
@@ -495,8 +504,8 @@
 					"script": {
 						"id": "194742d4-61df-494b-b04e-87b1eb3ac9fe",
 						"exec": [
-							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"Login\");",
+							"pm.test(\"Cookies expired.\", function () {",
+							"    pm.expect(!pm.cookies.has('username'));",
 							"});",
 							"pm.test(\"Status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
