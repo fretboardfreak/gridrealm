@@ -6,6 +6,7 @@ from enum import Enum
 from flask_restful import Resource
 
 from gridrealm.config import Config
+from gridrealm.auth import user_required
 
 
 class RandomImage(Resource):
@@ -26,8 +27,6 @@ class RandomImage(Resource):
                                   Config().assets.asset_path)
         if specific_path:
             start_path = os.path.join(start_path, specific_path)
-        # debug logging
-        # self.app.logger.debug('RI: start path: %s' % start_path)
         for dpath, _, fnames in os.walk(start_path):
             common = dpath[dpath.find(assets) + len(assets):]
             common = common[1:] if common.startswith('/') else common
@@ -46,10 +45,9 @@ class RandomImage(Resource):
         """Choose and return a random image from the list of images."""
         images = self._load_image_list(self.specific_path)
         img = random.choice(images)
-        # debug logging
-        # self.app.logger.debug('RI: image "%s" chosen from %s items' %
-        #                       (img, len(images)))
         return {'image': img}
+
+    get = user_required(get)
 
 
 class RandomActionImage(RandomImage):
