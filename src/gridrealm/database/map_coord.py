@@ -12,7 +12,6 @@ from gridrealm.database import Base
 class MapCoord(Base):
     """Table to represent the map details at each coordinate."""
 
-    # pylint: disable=invalid-name
     __tablename__ = 'map_coords'
 
     xcoord = Column(Integer, primary_key=True, nullable=False)

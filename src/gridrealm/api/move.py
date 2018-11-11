@@ -34,12 +34,12 @@ class Move(Resource):
         # get coord trying to move to
         dest = grmap.get_next_coord(current, direction)
 
-        # if at edge of map, dest will be None, move is then not allowed
         # determine if movement is allowed; fail if not
+        # if at edge of map, dest will be None, move is then not allowed
         if not dest or not grmap.is_move_allowed(current, dest):
             abort(HTTPStatus.BAD_REQUEST.value)
 
-        # if move allowed, update user's location in the database
+        # move allowed, update user's location in the database
         flask_g.user.xcoord = dest.xcoord
         flask_g.user.ycoord = dest.ycoord
         flask_g.user.zcoord = dest.zcoord

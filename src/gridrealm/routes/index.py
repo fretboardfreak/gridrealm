@@ -34,6 +34,7 @@ class Index(GRView):
 
     def get(self):
         """Perform a GET request for the index context."""
+        # pylint cannot find the logger on the APP
         # pylint: disable=no-member
         if flask_g.user is not None:  # User is logged in
             GR.APP.logger.debug('User is logged in: %s' % flask_g.user.name)
@@ -50,6 +51,7 @@ class Index(GRView):
 
     def post(self):
         """Perform a POST request for the index context."""
+        # pylint cannot find the logger on the APP
         # pylint: disable=no-member
         if 'username' in request.form and request.form['username'] != "":
             # TODO: do something better to let the user log in

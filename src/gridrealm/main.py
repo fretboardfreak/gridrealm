@@ -105,6 +105,7 @@ def prep_db(args):
         create_map()
         sys.exit(0)
 
+    # pylint cannot tell that this gets registered with and used by the app
     # pylint: disable=unused-variable
     @gridrealm.APP.teardown_appcontext
     def shutdown_session(exception=None):

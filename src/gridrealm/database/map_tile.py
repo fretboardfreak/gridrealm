@@ -23,9 +23,10 @@ class TileType(enum.Enum):
 class MapTile(Base):
     """A tile that makes up the world map."""
 
-    # pylint: disable=invalid-name
     __tablename__ = 'map_tiles'
 
+    # pylint doesn't like the name id
+    # pylint: disable=invalid-name
     id = Column(Integer, primary_key=True)
     name = Column(String(50), unique=True, nullable=False)
     tile_type = Column(Enum(TileType), nullable=False)
@@ -38,16 +39,13 @@ class MapTile(Base):
     exitE = Column(Boolean, nullable=False)
     exitS = Column(Boolean, nullable=False)
     exitW = Column(Boolean, nullable=False)
-    # map = relationship('Map', uselist=False, back_populates="map_tiles")
-    # map_coords = relationship(
-    #     'MapCoord', backref=backref("map_tiles", uselist=False))
+
     coords = relationship('MapCoord', back_populates='tile')
 
     def __init__(self, name, tile_type, resource,
                  enterN, enterE, enterS, enterW,
                  exitN, exitE, exitS, exitW):
         """Create an instance of the MapTile database model."""
-        # self.id = id
         self.name = name
         self.tile_type = tile_type
         self.resource = resource

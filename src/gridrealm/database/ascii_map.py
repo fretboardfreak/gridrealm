@@ -172,9 +172,8 @@ def create_tile_set():
     for tile in TileSet:  # enum of MapTile objs
         print(' - %s' % tile.value.name)
         gridrealm.DBS.add(tile.value)
-        gridrealm.DBS.commit()
 
-    # gridrealm.DBS.commit()
+    gridrealm.DBS.commit()
     print('...commited')
 
 

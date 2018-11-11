@@ -13,9 +13,10 @@ from gridrealm.database.map_coord import MapCoord
 class User(Base):
     """A user of the game gridrealm."""
 
-    # pylint: disable=invalid-name
     __tablename__ = 'users'
 
+    # pylint doesn't like the name id
+    # pylint: disable=invalid-name
     id = Column(Integer, primary_key=True)
     name = Column(String(50), unique=True, nullable=False)
     last_login = Column(Float, nullable=False)

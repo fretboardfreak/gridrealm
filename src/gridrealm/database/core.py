@@ -18,6 +18,7 @@ def load_db(db_url):
 
 def init_db():
     """Create the database schema in a new database."""
+    # pylint doesn't like the unused imports or the DBS global
     # pylint: disable=unused-variable
     from gridrealm.database.user import User
     from gridrealm.database.map_tile import MapTile

@@ -27,6 +27,7 @@ def load(cliargs=None):
 
 def get_game_map():
     """Query the database for the game."""
+    # pylint doesn't like the DBS global
     # pylint: disable=no-member
     return GR.DBS.query(DB.MapCoord).all()
 
