@@ -635,6 +635,50 @@
 			"response": []
 		},
 		{
+			"name": "move",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ec93548-8269-4c09-912a-38b34fa730d4",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 400]);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "direction",
+							"value": "east",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/api/move",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"move"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
 			"name": "logout",
 			"event": [
 				{
