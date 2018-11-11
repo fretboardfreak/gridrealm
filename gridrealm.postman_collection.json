@@ -231,6 +231,236 @@
 			"response": []
 		},
 		{
+			"name": "location no-login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7bf8f6e1-32d8-4849-8ebb-57c3646af19e",
+						"exec": [
+							"pm.test(\"Status code is 401 - unauthorized\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/api/location",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"location"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "randomImage no-login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7bf8f6e1-32d8-4849-8ebb-57c3646af19e",
+						"exec": [
+							"pm.test(\"Status code is 401 - unauthorized\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/api/randomImage",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"randomImage"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "randomActionImage no-login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7bf8f6e1-32d8-4849-8ebb-57c3646af19e",
+						"exec": [
+							"pm.test(\"Status code is 401 - unauthorized\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/api/randomActionImage",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"randomActionImage"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "randomInventoryImage no-login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7bf8f6e1-32d8-4849-8ebb-57c3646af19e",
+						"exec": [
+							"pm.test(\"Status code is 401 - unauthorized\", function () {",
+							"    pm.response.to.have.status(401);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost/api/randomInventoryImage",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"api",
+						"randomInventoryImage"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8ec93548-8269-4c09-912a-38b34fa730d4",
+						"exec": [
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"action-panel\");",
+							"});",
+							"pm.test(\"Cookies added.\", function () {",
+							"    pm.expect(pm.cookies.has('username'));",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "test",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost",
+					"host": [
+						"localhost"
+					]
+				},
+				"description": "no-login - should receive the landing page."
+			},
+			"response": []
+		},
+		{
 			"name": "randomImage",
 			"event": [
 				{
@@ -347,98 +577,6 @@
 					"path": [
 						"api",
 						"randomInventoryImage"
-					]
-				},
-				"description": "no-login - should receive the landing page."
-			},
-			"response": []
-		},
-		{
-			"name": "location no-login",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "7bf8f6e1-32d8-4849-8ebb-57c3646af19e",
-						"exec": [
-							"pm.test(\"Status code is 401 - unauthorized\", function () {",
-							"    pm.response.to.have.status(401);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "test",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "localhost/api/location",
-					"host": [
-						"localhost"
-					],
-					"path": [
-						"api",
-						"location"
-					]
-				},
-				"description": "no-login - should receive the landing page."
-			},
-			"response": []
-		},
-		{
-			"name": "login",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "8ec93548-8269-4c09-912a-38b34fa730d4",
-						"exec": [
-							"pm.test(\"Body matches string\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"action-panel\");",
-							"});",
-							"pm.test(\"Cookies added.\", function () {",
-							"    pm.expect(pm.cookies.has('username'));",
-							"});",
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "username",
-							"value": "test",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "localhost",
-					"host": [
-						"localhost"
 					]
 				},
 				"description": "no-login - should receive the landing page."
