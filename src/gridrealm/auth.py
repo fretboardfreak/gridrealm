@@ -1,10 +1,11 @@
 """Auth Library for the Gridrealm server."""
 
+from http import HTTPStatus
+
 from flask import session
 from flask import abort
 from flask import g as flask_g
 
-import gridrealm as GR
 import gridrealm.database as DB
 
 # TODO: do something even better to make sure user is logged in
@@ -15,7 +16,6 @@ def _check_login():
 
     If user is logged in set user to flask.g.user.
     """
-    # pylint: disable=no-member
     flask_g.user = None
     if 'username' in session:
         flask_g.user = DB.User.query.filter(
@@ -32,7 +32,7 @@ def user_required(view_func):
         """Wrap a view function with a check for user authorization."""
         _check_login()
         if flask_g.user is None:
-            abort(401)
+            abort(HTTPStatus.UNAUTHORIZED.value)
         return view_func(*args, **kwargs)
     return decorator
 
