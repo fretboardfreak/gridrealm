@@ -134,14 +134,21 @@ removedb :
 	popd
 
 .PHONY: dev-loop
-dev-loop: all drun
+dev-loop : all drun
 	@echo "all target"
 
 .PHONY: ipy
-ipy: dist pyvenv
+ipy : dist pyvenv
 	pushd dist/ ;\
 	../pyvenv/bin/ipython ;\
 	popd
+
+.PHONY: lot
+lot :
+	git ls-files | \
+		sed -e 's/pylintrc//g' \
+				-e 's/gridrealm.postman_collection.json//g' \
+				-e 's/package.*json//g' | xargs wc -l
 
 # clean targets
 
@@ -189,7 +196,8 @@ clean-assets:
 
 .PHONY: clean-scripts
 clean-scripts:
-	rm -rf $(DIST_DIR)/*.py scripts  # TODO: be smarter than wildcard rm here
+	# TODO: be smarter than wildcard rm here
+	rm -rf $(DIST_DIR)/*.py scripts
 
 .PHONY: clean-pyvenv
 clean-pyvenv :
