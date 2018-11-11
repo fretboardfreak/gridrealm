@@ -24,7 +24,7 @@ group version
     Client -> Server: GET::api/version
     Server --> Client: {'version': '0.1'}
 
-group randomImage
+group randomImage (login required)
 
     Client -> Server: GET::api/randomImage
     Server --> Client: {'image': '_assets/RANDOMPATH'}
@@ -33,7 +33,7 @@ group randomImage
         directory.
     end note
 
-group randomActionImage
+group randomActionImage (login required)
 
     Client -> Server: GET::api/randomActionImage
     Server --> Client: {'image': '_assets/action/RANDOMPATH'}
@@ -43,7 +43,7 @@ group randomActionImage
         directory.
     end note
 
-group randomInventoryImage
+group randomInventoryImage (login required)
 
     Client -> Server: GET::api/randomInventoryImage
     Server --> Client: {'image': '_assets/multi/inventory/RANDOMPATH'}
@@ -63,16 +63,9 @@ group sysmsg
     Client -> Server: GET::sysmsg
     Server --> Client: return EventStream socket
 
-group location
+group location (login required)
 
-    Client -> Server: POST::api/location  (invalid login)
-    Server --> Client: landing.html
-    note over Server
-        This is the standard response to any
-        invalid login requests to the api.
-    end note
-
-    Client -> Server: POST::api/location  (valid login)
+    Client -> Server: GET::api/location  (valid login)
     Server --> Client: return LocationResponse
     note over Server
         Map zoom level is sent as part of POST request, here assume 3x3.
@@ -94,5 +87,10 @@ group location
         .                [None, None, None]]
         .}
     end note
+
+group move (login required)
+
+    Client -> Server: POST:api/move {'direction': 'north'}
+    Server --> Client: move user in DB, redirect "location"
 
 @enduml
