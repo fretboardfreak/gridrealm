@@ -170,7 +170,7 @@ clean-client :
 .PHONY: clean-engine
 clean-engine : clean-pyc
 	rm -rf $(DIST_DIR)/gridrealm client assets css-prefix doc css static \
-		client-dir all engine js
+		client-dir all engine js pybuild
 
 .PHONY: clean-pyc
 clean-pyc :
