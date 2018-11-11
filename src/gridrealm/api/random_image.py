@@ -5,8 +5,10 @@ import random
 from enum import Enum
 from flask_restful import Resource
 
+import gridrealm as GR
 from gridrealm.config import Config
 from gridrealm.auth import user_required
+from gridrealm.api.core import ResourceEnum
 
 
 class RandomImage(Resource):
@@ -17,13 +19,12 @@ class RandomImage(Resource):
 
     uri = '/api/randomImage'
     specific_path = None
-    app = None
 
     def _load_image_list(self, specific_path=None):
         """Load a list of images from the asset folder."""
         images = []
         assets = "_assets"
-        start_path = os.path.join(self.app.static_folder,
+        start_path = os.path.join(GR.APP.static_folder,
                                   Config().assets.asset_path)
         if specific_path:
             start_path = os.path.join(start_path, specific_path)
@@ -64,18 +65,9 @@ class RandomInventoryImage(RandomImage):
     specific_path = "multi/inventoryIcons"
 
 
-class Resources(Enum):
+class Resources(ResourceEnum):
     """Enum of all resources in this module."""
 
     image = RandomImage
     action = RandomActionImage
     inventory = RandomInventoryImage
-
-    @classmethod
-    def add_resources(cls, api, resource_classes=None):
-        """Register the given resources on the api object."""
-        if not resource_classes:
-            resource_classes = [res.value for res in cls]
-        for res_cls in resource_classes:
-            res_cls.app = api.app
-            api.add_resource(res_cls, res_cls.uri)
