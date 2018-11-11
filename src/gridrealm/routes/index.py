@@ -88,10 +88,7 @@ class Index(GRView):
 
         set_cookies(response=response,
                     username=str(flask_g.user.name),
-                    last_login=ts_to_str(old_last_login),
-                    xcoord=str(flask_g.user.xcoord),
-                    ycoord=str(flask_g.user.ycoord),
-                    zcoord=str(flask_g.user.zcoord))
+                    last_login=ts_to_str(old_last_login))
 
         return response
 

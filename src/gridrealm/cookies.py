@@ -9,9 +9,6 @@ class Cookies(Enum):
 
     username = auto()
     last_login = auto()
-    xcoord = auto()
-    ycoord = auto()
-    zcoord = auto()
 
 
 def clear_cookies(response):
@@ -20,10 +17,9 @@ def clear_cookies(response):
         response.set_cookie(cookie.name, '', expires=0)
 
 
-def set_cookies(response, username, last_login, xcoord, ycoord, zcoord):
+def set_cookies(response, username=None, last_login=None):
     """Set the gridrealm client cookies on the response."""
-    response.set_cookie(Cookies.username.name, username)
-    response.set_cookie(Cookies.last_login.name, last_login)
-    response.set_cookie(Cookies.xcoord.name, xcoord)
-    response.set_cookie(Cookies.ycoord.name, ycoord)
-    response.set_cookie(Cookies.zcoord.name, zcoord)
+    if username:
+        response.set_cookie(Cookies.username.name, username)
+    if last_login:
+        response.set_cookie(Cookies.last_login.name, last_login)
