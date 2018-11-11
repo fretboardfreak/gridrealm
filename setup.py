@@ -65,14 +65,14 @@ class SetupCommand(Command):
 
     @property
     def software_package(self):
-        """Get the path to the software parkace."""
+        """Get the path to the software parkage."""
         return os.path.join(self.setup_path, 'src/gridrealm')
 
     @property
     def test_paths(self):
         """Get the list of paths for python files that should be tested."""
         return [self.software_package, __file__,
-                os.path.join(self.setup_path, 'scripts')]
+                os.path.join(self.setup_path, 'src/scripts')]
 
 
 class DevelopmentCommand(SetupCommand):
