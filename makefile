@@ -13,50 +13,94 @@ PYTHON = pyvenv/bin/python
 
 .PHONY: help
 help :
-	@echo "Gridrealm Makefile Targets:"
-	@echo "  help : Print this message"
-	@echo "  run : Run a development instance of gridrealm."
-	@echo "  drun : Run a development instance of gridrealm with debug enabled."
-	@echo "  initdb : Initialize the development database."
-	@echo "  removedb : Remove the development database."
+	@echo "Gridrealm Makefile"
 	@echo ""
-	@echo "Component Build Targets:"
+	@echo "  Help Targets:"
+	@echo "    help : Print this message about help targets."
+	@echo "    help-all : Print all help messages."
+	@echo "    help-build : Print help about build targets."
+	@echo "    help-run : Print help about run targets."
+	@echo "    help-clean : Print help about clean targets."
+	@echo "    help-dir : Print help about directory targets."
+	@echo "    help-install : Print help about install targets."
+	@echo "    help-css : Print help about CSS targets."
+	@echo "    help-py : Print help about Python targets."
+	@echo "    help-js : Print help about Javascript targets."
+	@echo "    help-doc : Print help about Javascript targets."
+	@echo "    help-docs : Alias for help-doc target."
+	@echo ""
+
+.PHONY: help-all
+help-all : help help-build help-run help-clean help-dir help-install help-css help-py help-js help-doc
+	@echo ""
+
+.PHONY: help-build
+help-build :
+	@echo "Build Targets:"
 	@echo "  all : Build and compile all project components."
 	@echo "  rebuild : Clean, Build and compile all project components."
 	@echo "  engine : Build the API Engine component."
 	@echo "  client : Build the Client component."
 	@echo "  pytests : Build the Python Tests."
 	@echo "  assets : Put copy of the asset dir in dist."
-	@echo "  scripts: Put copy of each script in dist."
-	@echo "  dev-loop: Execute 'clean-dist', 'all' and 'run' targets in order.."
-	@echo "  ipy: Run ipython for manual debugging."
-	@echo ""
+	@echo "  scripts : Put copy of each script in dist."
+
+.PHONY: help-run
+help-run :
+	@echo "Run Targets"
+	@echo "  run : Run a development instance of gridrealm."
+	@echo "  drun : Run a development instance of gridrealm with debug enabled."
+	@echo "  initdb : Initialize the development database."
+	@echo "  removedb : Remove the development database."
+	@echo "  dev-loop : Execute the build all target followed by drun."
+	@echo "  ipy : Run IPython for manual debugging."
+	@echo "  lot : Find the lines of text in the repository."
+	@echo "  cloc : Use 'cloc' to count the lines of code in the repository."
+
+.PHONY: help-clean
+help-clean :
 	@echo "Clean Targets:"
-	@echo "  clean : Clean all built files."
+	@echo "  clean : Clean all built files (clean-dist, clean-build)."
 	@echo "  clean-all : Clean all files, including installed packages."
 	@echo "  clean-build : Remove the build dir."
-	@echo "  clean-dist: Remove the dist dir."
-	@echo "  clean-pyvenv: Remove the pyvenv."
-	@echo "  clean-node: Remove the local installed node modules."
-	@echo ""
-	@echo "Misc Targets:"
-	@echo "  dist : Make dist dir."
+	@echo "  clean-dist : Remove the dist dir."
+	@echo "  clean-client : clean client out of dist."
+	@echo "  clean-engine : clean engine out of dist."
+	@echo "  clean-pyc : Remove all '*.pyc', '*.pyo', and '__pycache__' files."
+	@echo "  clean-pytests : clean python tests out of dist."
+	@echo "  clean-doc : clean all built documentation files."
+	@echo "  clean-docs : alias for clean-doc."
+	@echo "  clean-assets : clean assets out of dist."
+	@echo "  clean-scripts : clean scripts out of dist."
+	@echo "  clean-pyvenv : Remove the pyvenv."
+	@echo "  clean-npm : Remove the local installed npm modules."
+
+.PHONY: help-dir
+help-dir :
+	@echo "Directory Targets:"
 	@echo "  build : Make build dir."
+	@echo "  dist : Make dist dir."
 	@echo "  static : Make static dir inside dist dir."
 	@echo "  client-dir : Make client dir inside the static dir."
-	@echo ""
+
+.PHONY: help-install
+help-install :
 	@echo "Install Targets:"
+	@echo "  install : install gridrealm in the pyvenv."
 	@echo "  install-dev : install required pkgs for development."
 	@echo "  install-py : install python packages with pip."
 	@echo "  install-npm : install NPM packages."
-	@echo "  install : install gridrealm in the pyvenv."
-	@echo ""
+
+.PHONY: help-css
+help-css :
 	@echo "CSS Targets:"
 	@echo "  css : Run both css-compile and css-prefix."
 	@echo "  css-lint : run a linter on the CSS stylesheets."
 	@echo "  css-compile : compile from SCSS to CSS using SASS."
 	@echo "  css-prefix : prefix the CSS sheet using postcss autoprefixer."
-	@echo ""
+
+.PHONY: help-py
+help-py :
 	@echo "Python Targets:"
 	@echo "  pyvenv : build a virtualenv for the python install."
 	@echo "  pylint : execute the python pylint tool."
@@ -64,32 +108,40 @@ help :
 	@echo "  pycodestyle : execute the python pycodestyle tool."
 	@echo "  pystyle : execute all three python style tools."
 	@echo "  pybuild : Build the python packages into build dir."
-	@echo ""
+
+.PHONY: help-js
+help-js :
 	@echo "Javascript Targets:"
 	@echo "  js : use rollup and babel to compile javascript sources."
-	@echo ""
+
+.PHONY: help-docs
+help-docs :
 	@echo "Documentation Targets:"
-	@echo "  doc: Compile the documentation into the dist dir."
-	@echo "  docs: alias for doc target"
-	@echo "  docbuild: Copy documentation sources into build dir."
-	@echo "  doc-html: Build all RST files into HTML files in build dir."
-	@echo "  doc-uml: Build all PlantUML descriptions into images in build dir."
+	@echo "  doc : Compile the documentation into the dist dir."
+	@echo "  docs : alias for doc target"
+	@echo "  docbuild : Copy documentation sources into build dir."
+	@echo "  doc-html : Build all RST files into HTML files in build dir."
+	@echo "  doc-uml : Build all PlantUML descriptions into images in build dir."
+
+.PHONY: help-doc
+help-doc : help-docs
+	@echo ""
 
 
-# Component build targets
+# build targets
 
-all: client engine pytests doc assets scripts
+all : client engine pytests doc assets scripts
 	date > all
 
 .PHONY: rebuild
-rebuild: clean all
+rebuild : clean all
 	@echo "rebuild target"
 
-engine: pybuild
+engine : pybuild
 	cp -r $(BUILD_DIR)/lib/gridrealm $(DIST_DIR)/
 	date > engine
 
-pytests: engine
+pytests : engine
 	cp -r $(BUILD_DIR)/lib/tests $(DIST_DIR)/
 	date > pytests
 
@@ -101,13 +153,16 @@ client : dist engine static client-dir css js
 	cp node_modules/jquery/dist/jquery.min.js dist/gridrealm/static/client/js/
 	date > client
 
-assets: dist static
+assets : dist static
 	cp -r _assets dist/gridrealm/static/
 	date > assets
 
-scripts: dist
+scripts : dist
 	cp -r src/scripts/* $(DIST_DIR)
 	date > scripts
+
+
+# run targets
 
 .PHONY: run
 run :
@@ -183,24 +238,24 @@ clean-pyc :
 	sudo find dist -name "*.pyc" -or -name "*.pyo" -exec rm -rf '{}' '+'
 
 .PHONY: clean-pytests
-clean-pytests:
+clean-pytests :
 	rm -rf $(DIST_DIR)/tests pytests
 
 .PHONY: clean-doc
-clean-doc:
+clean-doc :
 	rm -rf $(DIST_DIR)/gridrealm/static/docs $(BUILD_DIR)/docs \
 		doc all doc-html doc-uml docbuild
 
 .PHONY: clean-docs
-clean-docs: clean-doc
+clean-docs : clean-doc
 	@echo ""
 
 .PHONY: clean-assets
-clean-assets:
+clean-assets :
 	rm -rf $(DIST_DIR)/gridrealm/static/_assets assets
 
 .PHONY: clean-scripts
-clean-scripts:
+clean-scripts :
 	# TODO: be smarter than wildcard rm here
 	rm -rf $(DIST_DIR)/*.py scripts
 
@@ -222,7 +277,7 @@ clean-all : clean clean-pyvenv clean-npm
 	@echo "clean-all target"
 
 
-# misc targets
+# directory targets
 
 build :
 	mkdir $(BUILD_DIR)
