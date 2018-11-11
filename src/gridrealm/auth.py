@@ -17,13 +17,9 @@ def _check_login():
     """
     # pylint: disable=no-member
     flask_g.user = None
-    if 'username' not in session:
-        GR.APP.logger.debug('CHECK_LOGIN: username not in session.')
-    else:
+    if 'username' in session:
         flask_g.user = DB.User.query.filter(
             DB.User.name == session['username']).first()
-    if flask_g.user is None:
-        GR.APP.logger.debug('CHECK_LOGIN: username not in database.')
 
 
 def user_required(view_func):
