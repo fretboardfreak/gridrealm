@@ -9,3 +9,25 @@ node_modules
 pyvenv
 
 src/gridrealm.egg-info
+
+# makefile target timestamp files
+all
+assets
+client
+client-dir
+css
+css-compile
+css-prefix
+doc
+doc-html
+doc-uml
+docbuild
+engine
+js
+pybuild
+pytests
+scripts
+static
+install-py
+install-npm
+install-dev
