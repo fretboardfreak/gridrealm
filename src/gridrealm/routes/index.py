@@ -5,12 +5,25 @@ from time import time
 from flask import render_template
 from flask import request
 from flask import session
+from flask import g as flask_g
 
 import gridrealm as GR
+import gridrealm.database as DB
 from gridrealm.util import ts_to_str
 from gridrealm.config import Config
 from gridrealm.database import User
+from gridrealm.auth import is_user_logged_in
 from gridrealm.routes.core import GRView
+from gridrealm.cookies import clear_cookies
+from gridrealm.cookies import set_cookies
+
+
+def get_client_template():
+    """Choose a client template based on the debug setting state."""
+    template = Config().assets.client_uri
+    if Config().gridrealm.debug:
+        template = Config().assets.debug_client_uri
+    return template
 
 
 class Index(GRView):
@@ -19,60 +32,67 @@ class Index(GRView):
     route = '/'
     endpoint = 'index'
 
-    def form_index_response(self):
-        """Get the client index, either landing page or the client itself."""
-        # pylint cannot find the logger object on the GR.APP
-        # pylint: disable=no-member
-        if request.method == 'POST' and request.form['username'] != "":
-            # TODO: do something better to let the user log in
-            session['username'] = request.form['username']
-        # TODO: do something to make sure user is logged in
-        if 'username' in session:
-            template = Config().assets.client_uri
-            if Config().gridrealm.debug:
-                template = Config().assets.debug_client_uri
-            response = GR.APP.make_response(
-                render_template(template))
-            uname = session['username']
-            # see if username is in database
-            user = User.query.filter(User.name == uname).first()
-            if user is None:  # username is not in database
-                # new users have now as their last login
-                msg = 'New player named %s' % uname
-                GR.SYS_MSG.publish(msg)
-                GR.APP.logger.debug(msg)
-                user = User(uname, time())
-            else:
-                msg = '%s is back. last logout was at %s' % (
-                    user.name, ts_to_str(user.last_logout))
-                GR.SYS_MSG.publish(msg)
-                GR.APP.logger.debug(msg)
-            old_last_login = user.last_login
-            user.last_login = time()
-            # add new user or update existing user in the database
-            GR.DBS.add(user)
-            GR.DBS.commit()
-
-            response.set_cookie('username', uname)
-            response.set_cookie('last_login', ts_to_str(old_last_login))
-            response.set_cookie('xcoord', str(user.xcoord))
-            response.set_cookie('ycoord', str(user.ycoord))
-            response.set_cookie('zcoord', str(user.zcoord))
-        else:
-            GR.APP.logger.debug('New user at landing page.')
-            response = GR.APP.make_response(
-                render_template(Config().assets.landing_uri))
-            response.set_cookie('username', '', expires=0)
-            response.set_cookie('last_login', '', expires=0)
-            response.set_cookie('xcoord', '', expires=0)
-            response.set_cookie('ycoord', '', expires=0)
-            response.set_cookie('zcoord', '', expires=0)
-        return response
-
     def get(self):
         """Perform a GET request for the index context."""
-        return self.form_index_response()
+        # pylint: disable=no-member
+        if flask_g.user is not None:  # User is logged in
+            GR.APP.logger.debug('User is logged in: %s' % flask_g.user.name)
+            response = GR.APP.make_response(render_template(
+                get_client_template()))
+        else:  # No user is logged in
+            GR.APP.logger.debug('No user is logged in.')
+            response = GR.APP.make_response(render_template(
+                Config().assets.landing_uri))
+            clear_cookies(response)
+        return response
+
+    get = is_user_logged_in(get)
 
     def post(self):
         """Perform a POST request for the index context."""
-        return self.form_index_response()
+        # pylint: disable=no-member
+        if 'username' in request.form and request.form['username'] != "":
+            # TODO: do something better to let the user log in
+            session['username'] = request.form['username']
+            response = GR.APP.make_response(render_template(
+                get_client_template()))
+        else:  # misformed/missing form data, return back the landing page
+            response = GR.APP.make_response(render_template(
+                Config().assets.landing_uri))
+            # clear cookies in case they haven't been cleared at this point
+            clear_cookies(response)
+            return response
+
+        # query database for user, since username was not in session before
+        flask_g.user = DB.User.query.filter(
+            DB.User.name == session['username']).first()
+        if flask_g.user is not None:  # User has logged back in
+            msg = '%s is back. last logout was at %s' % (
+                flask_g.user.name, ts_to_str(flask_g.user.last_logout))
+            GR.SYS_MSG.publish(msg)
+            GR.APP.logger.debug(msg)
+        else:  # New user is being created
+            uname = session['username']
+            msg = 'New player named %s' % uname
+            GR.SYS_MSG.publish(msg)
+            GR.APP.logger.debug(msg)
+            flask_g.user = User(uname, time())
+
+        # update user's last login time to now
+        old_last_login = flask_g.user.last_login
+        flask_g.user.last_login = time()
+
+        # add new user or update existing user in the database
+        GR.DBS.add(flask_g.user)
+        GR.DBS.commit()
+
+        set_cookies(response=response,
+                    username=str(flask_g.user.name),
+                    last_login=ts_to_str(old_last_login),
+                    xcoord=str(flask_g.user.xcoord),
+                    ycoord=str(flask_g.user.ycoord),
+                    zcoord=str(flask_g.user.zcoord))
+
+        return response
+
+    post = is_user_logged_in(post)
