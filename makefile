@@ -112,7 +112,8 @@ help-py :
 .PHONY: help-js
 help-js :
 	@echo "Javascript Targets:"
-	@echo "  js : use rollup and babel to compile javascript sources."
+	@echo "  js : Use rollup and babel to compile javascript sources."
+	@echo "  jslint : Use eslint to check the javascript style."
 
 .PHONY: help-docs
 help-docs :
@@ -373,6 +374,10 @@ pybuild :
 js :
 	npx rollup -c --no-interop --no-treeshake
 	date > js
+
+.PHONY: jslint
+jslint :
+	./node_modules/eslint/bin/eslint.js src/client/js/*
 
 
 # Documentation Targets
