@@ -13,6 +13,7 @@ URI.version = 'api/version';
 URI.randomImage = 'api/randomImage';
 URI.randomActionImage = 'api/randomActionImage';
 URI.randomInventoryImage = 'api/randomInventoryImage';
+URI.logout = 'logout';
 
 export class API {
   static get_random_image(success) {
