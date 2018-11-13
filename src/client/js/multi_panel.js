@@ -6,15 +6,13 @@
  *
  */
 
-import {APIhelpers} from "./api.js"
-
 export function change_multipanel_view(panel) {
-  var full_panel_name = "#mp-" + panel;
+  var full_panel_name = '#mp-' + panel;
   // disable all tabs first
-  $("#mp-content").children().hide();
-  $("#mp-nav-bar").children('nav').children('span').removeClass('active');
+  $('#mp-content').children().hide();
+  $('#mp-nav-bar').children('nav').children('span').removeClass('active');
   // then enable the one we want to see
-  $(full_panel_name + "-lnk").addClass('active');
+  $(full_panel_name + '-lnk').addClass('active');
   $(full_panel_name).show();
 }
 

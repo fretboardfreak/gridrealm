@@ -11,9 +11,9 @@ export function get_font_size() {
 }
 
 export function build_image_tag(source, height) {
-  if (typeof height === 'undefined') height = "auto";
-  return ("<img class=\"img-fluid mx-auto\" style\"" +
-          " height: " + height + ";\" src=\"" + source + "\"/>");
+  if (typeof height === 'undefined') height = 'auto';
+  return ('<img class="img-fluid mx-auto" style="' +
+          ' height: ' + height + ';" src="' + source + '"/>');
 }
 
 export function get_cookie(a) {

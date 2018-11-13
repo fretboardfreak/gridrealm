@@ -6,13 +6,13 @@
  *
  */
 
-import {build_image_tag} from "./util.js"
+import {build_image_tag} from './util.js';
 
-export var URI = {}
-URI.version = "api/version",
-URI.randomImage = "api/randomImage",
-URI.randomActionImage = "api/randomActionImage",
-URI.randomInventoryImage = "api/randomInventoryImage"
+export var URI = {};
+URI.version = 'api/version';
+URI.randomImage = 'api/randomImage';
+URI.randomActionImage = 'api/randomActionImage';
+URI.randomInventoryImage = 'api/randomInventoryImage';
 
 export class API {
   static get_random_image(success) {
@@ -44,7 +44,7 @@ export class API {
       error: function (error) {console.log(error);}
     });
   }
-_
+
   static get_random_inventory_image(success) {
     $.ajax({
       url: URI.randomInventoryImage,
@@ -58,21 +58,21 @@ _
 
 export class APIhelpers {
   static add_random_image(tag, height) {
-    if (typeof height === 'undefined') height = "auto";
+    if (typeof height === 'undefined') height = 'auto';
     API.get_random_image(function (response){
       tag.html(build_image_tag(response.image, height));
     });
   }
 
   static add_random_action_image(tag, height) {
-    if (typeof height === 'undefined') height = "auto";
+    if (typeof height === 'undefined') height = 'auto';
     API.get_random_action_image(function (response){
       tag.html(build_image_tag(response.image, height));
     });
   }
 
   static add_random_inventory_image(tag, height) {
-    if (typeof height === 'undefined') height = "auto";
+    if (typeof height === 'undefined') height = 'auto';
     API.get_random_inventory_image(function (response){
       tag.html(build_image_tag(response.image, height));
     });
