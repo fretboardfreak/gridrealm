@@ -52,7 +52,7 @@ help-run :
 	@echo "  drun : Run a development instance of gridrealm with debug enabled."
 	@echo "  initdb : Initialize the development database."
 	@echo "  removedb : Remove the development database."
-	@echo "  dev-loop : Execute the build all target followed by drun."
+	@echo "  dev : Execute the build all target followed by drun."
 	@echo "  ipy : Run IPython for manual debugging."
 	@echo "  lot : Find the lines of text in the repository."
 	@echo "  cloc : Use 'cloc' to count the lines of code in the repository."
@@ -189,8 +189,8 @@ removedb :
 	../pyvenv/bin/python gr.py -c ../dev.cfg --removedb --debug;\
 	popd
 
-.PHONY: dev-loop
-dev-loop : all drun
+.PHONY: dev
+dev : all drun
 	@echo "all target"
 
 .PHONY: ipy
@@ -372,7 +372,7 @@ pybuild :
 # js targets
 
 js :
-	npx rollup -c --no-interop --no-treeshake
+	npx rollup -c
 	date > js
 
 .PHONY: jslint
