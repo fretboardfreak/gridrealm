@@ -2,14 +2,14 @@
 
 import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
-import commonjs from 'rollup-plugin-commonjs';
 import inject from 'rollup-plugin-inject';
 
 export default {
   input: 'src/client/js/gridrealm.js',
   output: {
     file: 'dist/gridrealm/static/client/js/gridrealm.js',
-    format: 'cjs'
+    format: 'umd',
+    name: 'gridrealm'
   },
   external: ['bootstrap', 'jquery'],
   plugins: [
@@ -17,7 +17,6 @@ export default {
     babel({
       exclude: 'node_modules/**' // only transpile our source code
     }),
-    commonjs(),
     inject({
       include: '**/*.js',
       exclude: 'node_modules/**',
