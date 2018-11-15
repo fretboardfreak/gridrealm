@@ -123,16 +123,20 @@ def register_flask_views():
     move.Resources.add_resources(gridrealm.API)
 
 
-def run_flask_server(args):
-    """Execute the flask development server."""
+def prep_flask():
+    """Do the final prep steps for running the flask app."""
     # This patches the python threading stuff with greenlets from gevent
     gevent.monkey.patch_all()
 
     Config().update_flask(gridrealm.APP)
 
     # prep a global system message server sent event channel
-    gridrealm.SYS_MSG = Channel()
+    if gridrealm.SYS_MSG is None:
+        gridrealm.SYS_MSG = Channel()
 
+
+def run_flask_server(args):
+    """Execute the flask development server."""
     gridrealm.APP.run(host=args.host, port=args.port, debug=args.debug)
 
 
@@ -143,15 +147,16 @@ def cli_main():
     load_flask(args)
     prep_db(args)
     register_flask_views()
+    prep_flask()
     run_flask_server(args)
 
 
-def uwsgi_main(config_file):
+def load_uwsgi(config_file):
     """The main method for the Netify app, when started via UWSGI."""
     print(config_file)
-    # TODO: rewrite for gridrealm
-    # netify_app = NetifyApp(Config.load_config(config_file))
-    # netify_app.register_views(Views)
-    # # netify_app.flask_app.logger.info('NETIFY Loaded.')
-    #
-    # return netify_app.flask_app
+    args = parse_args(['-c', config_file])
+    load_config(args)
+    load_flask(args)
+    prep_db(args)
+    register_flask_views()
+    prep_flask()

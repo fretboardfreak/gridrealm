@@ -2,7 +2,7 @@
 # Copyright Curtis Sand, Dennison Gaetz - 2018
 
 from .main import cli_main
-from .main import uwsgi_main
+from .main import load_uwsgi
 from .config import Config
 
 
