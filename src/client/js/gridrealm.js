@@ -13,7 +13,16 @@ import {load_action_panel} from './action_panel.js';
 import {load_chat_panel} from './chat_panel.js';
 import {load_multi_panel} from './multi_panel.js';
 import {change_multipanel_view} from './multi_panel.js';
+import {load_minimap} from './multi_panel.js';
+import {load_nav_buttons} from './multi_panel.js';
 import {URI} from './api.js';
+import {API} from './api.js';
+
+export function update_client(data) {
+  console.log('minimap: ' + data['minimap']);
+  load_minimap(data['minimap']);
+  load_nav_buttons(data['movement']);
+}
 
 export function load_client() {
   if (auth.is_logged_in()) {
@@ -24,6 +33,11 @@ export function load_client() {
     $('#logout-lnk').html('Logout: ' + get_cookie('username'));
     $('body').removeClass('tiled_bg');
     console.log('Logged in as: ' + get_cookie('username'));
+
+    API.get_location(function (response) {
+      console.log(response);
+      update_client(response);
+    });
   }
   else { /* not logged in */
     console.log('Not Logged In. Doing nothing.');
@@ -57,4 +71,38 @@ $('#mp-quest-lnk').children('img').click(function(){
 });
 $('#mp-social-lnk').children('img').click(function(){
   change_multipanel_view('social');
+});
+
+// Set Movement button events
+$('#north-btn').click(function () {
+  console.log('Attempting to move North.');
+  API.move('north', function (response) {
+    console.log('response: ' + response);
+    update_client(response);
+    console.log('moved');
+  });
+});
+$('#south-btn').click(function () {
+  console.log('Attempting to move South.');
+  API.move('south', function (response) {
+    console.log('response: ' + response);
+    update_client(response);
+    console.log('moved');
+  });
+});
+$('#east-btn').click(function () {
+  console.log('Attempting to move East.');
+  API.move('east', function (response) {
+    console.log('response: ' + response);
+    update_client(response);
+    console.log('moved');
+  });
+});
+$('#west-btn').click(function () {
+  console.log('Attempting to move West.');
+  API.move('west', function (response) {
+    console.log('response: ' + response);
+    update_client(response);
+    console.log('moved');
+  });
 });
