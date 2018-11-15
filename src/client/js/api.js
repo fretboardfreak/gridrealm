@@ -15,6 +15,7 @@ URI.randomImage = 'api/randomImage';
 URI.randomActionImage = 'api/randomActionImage';
 URI.randomInventoryImage = 'api/randomInventoryImage';
 URI.location = 'api/location';
+URI.move = 'api/move';
 
 export class API {
   static get_random_image(success) {
@@ -62,6 +63,17 @@ export class API {
       url: URI.location,
       data: '',
       type: 'GET',
+      success: success,
+      error: function (error) {console.log(error);}
+    });
+  }
+
+  static move(direction, success) {
+    $.ajax({
+      url: URI.move,
+      data: {'direction': direction},
+      // dataType: 'text',
+      type: 'POST',
       success: success,
       error: function (error) {console.log(error);}
     });
