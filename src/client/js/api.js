@@ -9,11 +9,12 @@
 import {build_image_tag} from './util.js';
 
 export var URI = {};
+URI.logout = 'logout';
 URI.version = 'api/version';
 URI.randomImage = 'api/randomImage';
 URI.randomActionImage = 'api/randomActionImage';
 URI.randomInventoryImage = 'api/randomInventoryImage';
-URI.logout = 'logout';
+URI.location = 'api/location';
 
 export class API {
   static get_random_image(success) {
@@ -49,6 +50,16 @@ export class API {
   static get_random_inventory_image(success) {
     $.ajax({
       url: URI.randomInventoryImage,
+      data: '',
+      type: 'GET',
+      success: success,
+      error: function (error) {console.log(error);}
+    });
+  }
+
+  static get_location(success) {
+    $.ajax({
+      url: URI.location,
       data: '',
       type: 'GET',
       success: success,
