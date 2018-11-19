@@ -405,3 +405,23 @@ doc : doc-uml doc-html dist
 .PHONY: docs
 docs : doc
 	@echo
+
+
+# docker targets
+
+.PHONY: dk-engine
+dk-engine : all
+	sudo docker build -t gridrealm_api:dev -f api_engine.Dockerfile .
+	sudo docker volume create gridrealm
+
+.PHONY: dk-inspect
+dk-inspect :
+	sudo docker run --rm -t -i --entrypoint "" \
+		--mount source=gridrealm,destination=/gridrealm_config \
+		gridrealm_api:dev /bin/bash
+
+.PHONY: dk-run
+dk-run :
+	sudo docker run --rm -p 8000:8000 -a STDERR -a STDOUT \
+		--mount source=gridrealm,destination=/gridrealm_config \
+		gridrealm_api:dev
