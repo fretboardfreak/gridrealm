@@ -136,7 +136,8 @@ class Config(metaclass=Singleton):
             return self._assets_cache
         asset_defaults = Section.assets.value
         ret_val = dict([(obj.name, obj.value) for obj in asset_defaults])
-        ret_val.update(self._section_as_dict(Section.assets.name))
+        config_vals = self._section_as_dict(Section.assets.name)
+        ret_val.update(config_vals)
         self._assets_cache = AttrDict(**ret_val)
         return self._assets_cache
 
@@ -147,7 +148,8 @@ class Config(metaclass=Singleton):
             return self._gridrealm_cache
         gr_defaults = Section.gridrealm.value
         opt_dict = dict([(obj.name, obj.value) for obj in gr_defaults])
-        opt_dict.update(self._section_as_dict(Section.assets.name))
+        config_vals = self._section_as_dict(Section.gridrealm.name)
+        opt_dict.update(config_vals)
         self._gridrealm_cache = AttrDict(**opt_dict)
         return self._gridrealm_cache
 
