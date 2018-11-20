@@ -411,7 +411,7 @@ docs : doc
 
 .PHONY: dk-engine
 dk-engine : all
-	sudo docker build -t gridrealm_api:dev -f api_engine.Dockerfile .
+	sudo docker build -t gridrealm_api:dev -f docker/api_engine.Dockerfile .
 	sudo docker volume create gridrealm
 
 .PHONY: dk-inspect

@@ -11,7 +11,7 @@ COPY dist /gridrealm/
 
 # create gridrealm_config volume
 RUN mkdir /gridrealm_config
-COPY docker.cfg /gridrealm_config/docker.cfg
+COPY docker/docker.cfg /gridrealm_config/docker.cfg
 
 # initialize the database file on the config volume
 RUN python /gridrealm/gr.py --config /gridrealm_config/docker.cfg --initdb
