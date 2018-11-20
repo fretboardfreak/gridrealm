@@ -413,15 +413,29 @@ docs : doc
 dk-engine : all
 	sudo docker build -t gridrealm_api:dev -f docker/api_engine.Dockerfile .
 	sudo docker volume create gridrealm
+	sudo docker volume create grsocket
+
+.PHONY: dk-nginx
+dk-nginx : all
+	sudo docker build -t gridrealm_nginx:dev -f docker/nginx.Dockerfile .
+	sudo docker volume create grsocket
 
 .PHONY: dk-inspect
 dk-inspect :
 	sudo docker run --rm -t -i --entrypoint "" \
 		--mount source=gridrealm,destination=/gridrealm_config \
+		--mount source=grsocket,destination=/socket \
 		gridrealm_api:dev /bin/bash
 
-.PHONY: dk-run
-dk-run :
-	sudo docker run --rm -p 8000:8000 -a STDERR -a STDOUT \
+.PHONY: dk-run-api
+dk-run-api :
+	sudo docker run --rm -a STDERR -a STDOUT \
 		--mount source=gridrealm,destination=/gridrealm_config \
+		--mount source=grsocket,destination=/socket \
 		gridrealm_api:dev
+
+.PHONY: dk-run-nginx
+dk-run-nginx :
+	sudo docker run --rm -a STDERR -a STDOUT \
+		--mount source=grsocket,destination=/socket \
+		-p 80:80 gridrealm_nginx:dev
