@@ -18,7 +18,9 @@ RUN python /gridrealm/gr.py --config /gridrealm_config/docker.cfg --initdb
 
 VOLUME /gridrealm_config
 
+RUN mkdir /socket
+VOLUME /socket
 
 EXPOSE 8000
 WORKDIR /gridrealm
-ENTRYPOINT ["/usr/local/bin/gunicorn", "--config", "gunicorn_conf.py", "-b", ":8000", "uwsgi_docker:application"]
+ENTRYPOINT ["/usr/local/bin/gunicorn", "--config", "gunicorn_conf.py", "-b", "unix:/socket/api_engine", "uwsgi_docker:application"]
