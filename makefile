@@ -6,10 +6,10 @@
 #
 ###
 
-BUILD_DIR = build
-DIST_DIR = dist
-PYVENV = pyvenv
-PYTHON = pyvenv/bin/python
+BUILD_DIR = $$(pwd)/build
+DIST_DIR = $$(pwd)/dist
+PYVENV = $$(pwd)/pyvenv
+PYTHON = $$(pwd)/pyvenv/bin/python
 
 .PHONY: help
 help :
@@ -420,8 +420,8 @@ dk-nginx : all
 	sudo docker build -t gridrealm_nginx:dev -f docker/nginx.Dockerfile .
 	sudo docker volume create grsocket
 
-.PHONY: dk-inspect
-dk-inspect :
+.PHONY: dk-inspect-api
+dk-inspect-api :
 	sudo docker run --rm -t -i --entrypoint "" \
 		--mount source=gridrealm,destination=/gridrealm_config \
 		--mount source=grsocket,destination=/socket \
@@ -429,13 +429,25 @@ dk-inspect :
 
 .PHONY: dk-run-api
 dk-run-api :
-	sudo docker run --rm -a STDERR -a STDOUT \
+	sudo docker run --rm \
 		--mount source=gridrealm,destination=/gridrealm_config \
 		--mount source=grsocket,destination=/socket \
 		gridrealm_api:dev
 
 .PHONY: dk-run-nginx
 dk-run-nginx :
-	sudo docker run --rm -a STDERR -a STDOUT \
+	sudo docker run --rm -p 80:80
 		--mount source=grsocket,destination=/socket \
-		-p 80:80 gridrealm_nginx:dev
+		gridrealm_nginx:dev
+
+.PHONY: dk-backup
+dk-backup : dist
+	mkdir -p $(DIST_DIR)/docker
+	sudo docker run --rm -v $(DIST_DIR)/docker:/backup \
+		--mount source=gridrealm,destination=/gr \
+		--workdir /gr \
+		alpine:latest tar cvzf /backup/gr_config.tgz .
+	sudo docker image save gridrealm_api:dev -o $(DIST_DIR)/docker/gr_api.tar
+	sudo docker image save gridrealm_nginx:dev -o $(DIST_DIR)/docker/gr_nginx.tar
+	sudo docker image save alpine:latest -o $(DIST_DIR)docker/alpine.tar
+	sudo chown $$(id -u):$$(id -g) $(DIST_DIR)/docker/*
