@@ -6,8 +6,9 @@ RUN pip install -r /tmp/requirements.txt
 RUN rm /tmp/requirements.txt
 
 # install gridrealm
-RUN mkdir /gridrealm
-COPY dist /gridrealm/
+RUN mkdir -p /gridrealm/gridrealm
+COPY dist/*.py /gridrealm/
+COPY dist/gridrealm /gridrealm/gridrealm
 
 # create gridrealm_config volume
 RUN mkdir /gridrealm_config
