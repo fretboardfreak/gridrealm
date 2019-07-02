@@ -34,21 +34,17 @@ export function load_multi_panel() {
 export function load_minimap(data) {
   var row;
   var cell;
-  var mm_html;
+  var mm_html = '';
   console.log('Loading minimp.');
   $('#minimap').html('');  // clear out old contents of minimap
   for (row in data) {
-    mm_html += '<tr>';
+    mm_html += '<div class="row no-gutters no-wrap">';
     for (cell in data[row]) {
-      mm_html += '<td class="border"><code>';
-      var top = data[row][cell][0];
-      top = top.replace(' ', '&nbsp;');
-      mm_html += top + '</code><br><code>';
-      var bot = data[row][cell][1];
-      bot = bot.replace(' ', '&nbsp;');
-      mm_html += bot + '</code></td>';
+      mm_html += '<img src="_assets/tiles/';
+      mm_html += data[row][cell][0];
+      mm_html += '" class="img-fluid" style="height: 50px; width: 50px;"/>';
     }
-    mm_html += '</tr>';
+    mm_html += '</div>';
   }
   $('#minimap').html(mm_html);
 }
