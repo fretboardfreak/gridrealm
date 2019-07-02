@@ -42,7 +42,7 @@ from gridrealm.config import guess_a_config_location
 from gridrealm.server_events import Channel
 from gridrealm.database import init_db
 from gridrealm.database import load_db
-from gridrealm.database.ascii_map import create_map
+from gridrealm.database.img_map import create_map
 
 
 def parse_args(cliargs=None):
